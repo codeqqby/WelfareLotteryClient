@@ -1,0 +1,1098 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WelfareLotteryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AdminName" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="NormalizedName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+          <Property Name="NormalizedEmail" Type="nvarchar(max)" />
+          <Property Name="NormalizedUserName" Type="nvarchar(max)" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LotteryStation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AdminId" Type="int" />
+          <Property Name="AgencyNum" Type="nvarchar(max)" />
+          <Property Name="CommunicationType" Type="bit" Nullable="false" />
+          <Property Name="DepositCardNo" Type="nvarchar(max)" />
+          <Property Name="EstablishedTime" Type="datetime2" Precision="7" />
+          <Property Name="GuaranteeBase64IdentityPic" Type="nvarchar(max)" />
+          <Property Name="GuaranteeName" Type="nvarchar(max)" />
+          <Property Name="HostBase64IdentityPic" Type="nvarchar(max)" />
+          <Property Name="HostBase64Pic" Type="nvarchar(max)" />
+          <Property Name="HostIdentityAddress" Type="nvarchar(max)" />
+          <Property Name="HostIdentityNo" Type="nvarchar(max)" />
+          <Property Name="HostName" Type="nvarchar(max)" />
+          <Property Name="HostPhoneNum" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineType" Type="bit" Nullable="false" />
+          <Property Name="ManageTypeName" Type="nvarchar(max)" />
+          <Property Name="ManageTypeProgencyListSerialized" Type="nvarchar(max)" />
+          <Property Name="PropertyRight" Type="bit" Nullable="false" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="RelatedPhoneNetNum" Type="nvarchar(max)" />
+          <Property Name="RentDiscount" Type="nvarchar(max)" />
+          <Property Name="SportLotteryInfoId" Type="int" />
+          <Property Name="StationCode" Type="nvarchar(max)" />
+          <Property Name="StationPhoneNo" Type="nvarchar(max)" />
+          <Property Name="StationPicListSerialized" Type="nvarchar(max)" />
+          <Property Name="StationSpecificAddress" Type="nvarchar(max)" />
+          <Property Name="StationTarget" Type="nvarchar(max)" />
+          <Property Name="UsableArea" Type="nvarchar(max)" />
+          <Property Name="Violation" Type="nvarchar(max)" />
+          <Property Name="WelfareGameTypeListSerialized" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RewardCardInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CardIdentityNo" Type="nvarchar(max)" />
+          <Property Name="CardName" Type="nvarchar(max)" />
+          <Property Name="CardNum" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LotteryStationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Salesclerk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="HeadPortraitBase64Pic" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentityAddress" Type="nvarchar(max)" />
+          <Property Name="IdentityNo" Type="nvarchar(max)" />
+          <Property Name="LotteryStationId" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SportLottery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameTypeId" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IncomingDate" Type="datetime2" Precision="7" />
+          <Property Name="IsInstall" Type="bit" Nullable="false" />
+          <Property Name="LotteryCode" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="Relation" Type="nvarchar(max)" />
+          <Property Name="SportLotteryHostName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SportLotteryGameType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameType" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StationManageType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DetailsListSerialized" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="StationModifiedInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LotteryStationId" Type="int" />
+          <Property Name="Memo" Type="nvarchar(max)" />
+          <Property Name="ModifiedTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="StationModifiedType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="StationRegion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="WelfareLotteryGameType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameType" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rebate" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1" />
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LotteryStation_Administrator_AdminId">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LotteryStation_SportLottery_SportLotteryInfoId">
+          <End Role="SportLottery" Type="Self.SportLottery" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportLottery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="SportLotteryInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LotteryStation_StationRegion_RegionId">
+          <End Role="StationRegion" Type="Self.StationRegion" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationRegion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RewardCardInfo_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="RewardCardInfo" Type="Self.RewardCardInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RewardCardInfo">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salesclerk_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="Salesclerk" Type="Self.Salesclerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salesclerk">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportLottery_SportLotteryGameType_GameTypeId">
+          <End Role="SportLotteryGameType" Type="Self.SportLotteryGameType" Multiplicity="0..1" />
+          <End Role="SportLottery" Type="Self.SportLottery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportLotteryGameType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SportLottery">
+              <PropertyRef Name="GameTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationModifiedInfo_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="StationModifiedInfo" Type="Self.StationModifiedInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationModifiedInfo">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId">
+          <End Role="StationModifiedType" Type="Self.StationModifiedType" Multiplicity="0..1" />
+          <End Role="StationModifiedInfo" Type="Self.StationModifiedInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationModifiedType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationModifiedInfo">
+              <PropertyRef Name="ModifiedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WelfareLotteryModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LotteryStation" EntityType="Self.LotteryStation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RewardCardInfo" EntityType="Self.RewardCardInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salesclerk" EntityType="Self.Salesclerk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportLottery" EntityType="Self.SportLottery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportLotteryGameType" EntityType="Self.SportLotteryGameType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationManageType" EntityType="Self.StationManageType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationModifiedInfo" EntityType="Self.StationModifiedInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationModifiedType" EntityType="Self.StationModifiedType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationRegion" EntityType="Self.StationRegion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WelfareLotteryGameType" EntityType="Self.WelfareLotteryGameType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LotteryStation_Administrator_AdminId" Association="Self.FK_LotteryStation_Administrator_AdminId">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LotteryStation_SportLottery_SportLotteryInfoId" Association="Self.FK_LotteryStation_SportLottery_SportLotteryInfoId">
+            <End Role="SportLottery" EntitySet="SportLottery" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LotteryStation_StationRegion_RegionId" Association="Self.FK_LotteryStation_StationRegion_RegionId">
+            <End Role="StationRegion" EntitySet="StationRegion" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RewardCardInfo_LotteryStation_LotteryStationId" Association="Self.FK_RewardCardInfo_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="RewardCardInfo" EntitySet="RewardCardInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salesclerk_LotteryStation_LotteryStationId" Association="Self.FK_Salesclerk_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="Salesclerk" EntitySet="Salesclerk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportLottery_SportLotteryGameType_GameTypeId" Association="Self.FK_SportLottery_SportLotteryGameType_GameTypeId">
+            <End Role="SportLotteryGameType" EntitySet="SportLotteryGameType" />
+            <End Role="SportLottery" EntitySet="SportLottery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationModifiedInfo_LotteryStation_LotteryStationId" Association="Self.FK_StationModifiedInfo_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="StationModifiedInfo" EntitySet="StationModifiedInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId" Association="Self.FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId">
+            <End Role="StationModifiedType" EntitySet="StationModifiedType" />
+            <End Role="StationModifiedInfo" EntitySet="StationModifiedInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WelfareLotteryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AdminName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_LotteryStation_Administrator_AdminId" FromRole="Administrator" ToRole="LotteryStation" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoleClaims" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoleClaims" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoles" ToRole="AspNetRoleClaims" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
+          <Property Name="NormalizedEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedUserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="LotteryStation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" />
+          <Property Name="AgencyNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CommunicationType" Type="Boolean" Nullable="false" />
+          <Property Name="DepositCardNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstablishedTime" Type="DateTime" Precision="7" />
+          <Property Name="GuaranteeBase64IdentityPic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GuaranteeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostBase64IdentityPic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostBase64Pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostIdentityAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostIdentityNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostPhoneNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineType" Type="Boolean" Nullable="false" />
+          <Property Name="ManageTypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManageTypeProgencyListSerialized" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyRight" Type="Boolean" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="RelatedPhoneNetNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RentDiscount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SportLotteryInfoId" Type="Int32" />
+          <Property Name="StationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationPhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationPicListSerialized" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationSpecificAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationTarget" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UsableArea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Violation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WelfareGameTypeListSerialized" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Administrator" Relationship="Self.FK_LotteryStation_Administrator_AdminId" FromRole="LotteryStation" ToRole="Administrator" />
+          <NavigationProperty Name="SportLottery" Relationship="Self.FK_LotteryStation_SportLottery_SportLotteryInfoId" FromRole="LotteryStation" ToRole="SportLottery" />
+          <NavigationProperty Name="StationRegion" Relationship="Self.FK_LotteryStation_StationRegion_RegionId" FromRole="LotteryStation" ToRole="StationRegion" />
+          <NavigationProperty Name="RewardCardInfo" Relationship="Self.FK_RewardCardInfo_LotteryStation_LotteryStationId" FromRole="LotteryStation" ToRole="RewardCardInfo" />
+          <NavigationProperty Name="Salesclerk" Relationship="Self.FK_Salesclerk_LotteryStation_LotteryStationId" FromRole="LotteryStation" ToRole="Salesclerk" />
+          <NavigationProperty Name="StationModifiedInfo" Relationship="Self.FK_StationModifiedInfo_LotteryStation_LotteryStationId" FromRole="LotteryStation" ToRole="StationModifiedInfo" />
+        </EntityType>
+        <EntityType Name="RewardCardInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CardIdentityNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CardName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CardNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LotteryStationId" Type="Int32" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_RewardCardInfo_LotteryStation_LotteryStationId" FromRole="RewardCardInfo" ToRole="LotteryStation" />
+        </EntityType>
+        <EntityType Name="Salesclerk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="HeadPortraitBase64Pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentityAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LotteryStationId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_Salesclerk_LotteryStation_LotteryStationId" FromRole="Salesclerk" ToRole="LotteryStation" />
+        </EntityType>
+        <EntityType Name="SportLottery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameTypeId" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IncomingDate" Type="DateTime" Precision="7" />
+          <Property Name="IsInstall" Type="Boolean" Nullable="false" />
+          <Property Name="LotteryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SportLotteryHostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_LotteryStation_SportLottery_SportLotteryInfoId" FromRole="SportLottery" ToRole="LotteryStation" />
+          <NavigationProperty Name="SportLotteryGameType" Relationship="Self.FK_SportLottery_SportLotteryGameType_GameTypeId" FromRole="SportLottery" ToRole="SportLotteryGameType" />
+        </EntityType>
+        <EntityType Name="SportLotteryGameType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SportLottery" Relationship="Self.FK_SportLottery_SportLotteryGameType_GameTypeId" FromRole="SportLotteryGameType" ToRole="SportLottery" />
+        </EntityType>
+        <EntityType Name="StationManageType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DetailsListSerialized" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StationModifiedInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LotteryStationId" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedTypeId" Type="Int32" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_StationModifiedInfo_LotteryStation_LotteryStationId" FromRole="StationModifiedInfo" ToRole="LotteryStation" />
+          <NavigationProperty Name="StationModifiedType" Relationship="Self.FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId" FromRole="StationModifiedInfo" ToRole="StationModifiedType" />
+        </EntityType>
+        <EntityType Name="StationModifiedType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StationModifiedInfo" Relationship="Self.FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId" FromRole="StationModifiedType" ToRole="StationModifiedInfo" />
+        </EntityType>
+        <EntityType Name="StationRegion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LotteryStation" Relationship="Self.FK_LotteryStation_StationRegion_RegionId" FromRole="StationRegion" ToRole="LotteryStation" />
+        </EntityType>
+        <EntityType Name="WelfareLotteryGameType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="GameType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rebate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_LotteryStation_Administrator_AdminId">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1" />
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LotteryStation_SportLottery_SportLotteryInfoId">
+          <End Role="SportLottery" Type="Self.SportLottery" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportLottery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="SportLotteryInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LotteryStation_StationRegion_RegionId">
+          <End Role="StationRegion" Type="Self.StationRegion" Multiplicity="0..1" />
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationRegion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LotteryStation">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RewardCardInfo_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="RewardCardInfo" Type="Self.RewardCardInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RewardCardInfo">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salesclerk_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="Salesclerk" Type="Self.Salesclerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salesclerk">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationModifiedInfo_LotteryStation_LotteryStationId">
+          <End Role="LotteryStation" Type="Self.LotteryStation" Multiplicity="0..1" />
+          <End Role="StationModifiedInfo" Type="Self.StationModifiedInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LotteryStation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationModifiedInfo">
+              <PropertyRef Name="LotteryStationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportLottery_SportLotteryGameType_GameTypeId">
+          <End Role="SportLotteryGameType" Type="Self.SportLotteryGameType" Multiplicity="0..1" />
+          <End Role="SportLottery" Type="Self.SportLottery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportLotteryGameType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SportLottery">
+              <PropertyRef Name="GameTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId">
+          <End Role="StationModifiedType" Type="Self.StationModifiedType" Multiplicity="0..1" />
+          <End Role="StationModifiedInfo" Type="Self.StationModifiedInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationModifiedType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationModifiedInfo">
+              <PropertyRef Name="ModifiedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="WelfareLotteryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="LotteryStation" EntityType="Self.LotteryStation" />
+          <EntitySet Name="RewardCardInfo" EntityType="Self.RewardCardInfo" />
+          <EntitySet Name="Salesclerk" EntityType="Self.Salesclerk" />
+          <EntitySet Name="SportLottery" EntityType="Self.SportLottery" />
+          <EntitySet Name="SportLotteryGameType" EntityType="Self.SportLotteryGameType" />
+          <EntitySet Name="StationManageType" EntityType="Self.StationManageType" />
+          <EntitySet Name="StationModifiedInfo" EntityType="Self.StationModifiedInfo" />
+          <EntitySet Name="StationModifiedType" EntityType="Self.StationModifiedType" />
+          <EntitySet Name="StationRegion" EntityType="Self.StationRegion" />
+          <EntitySet Name="WelfareLotteryGameType" EntityType="Self.WelfareLotteryGameType" />
+          <AssociationSet Name="FK_LotteryStation_Administrator_AdminId" Association="Self.FK_LotteryStation_Administrator_AdminId">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LotteryStation_SportLottery_SportLotteryInfoId" Association="Self.FK_LotteryStation_SportLottery_SportLotteryInfoId">
+            <End Role="SportLottery" EntitySet="SportLottery" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LotteryStation_StationRegion_RegionId" Association="Self.FK_LotteryStation_StationRegion_RegionId">
+            <End Role="StationRegion" EntitySet="StationRegion" />
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RewardCardInfo_LotteryStation_LotteryStationId" Association="Self.FK_RewardCardInfo_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="RewardCardInfo" EntitySet="RewardCardInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salesclerk_LotteryStation_LotteryStationId" Association="Self.FK_Salesclerk_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="Salesclerk" EntitySet="Salesclerk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationModifiedInfo_LotteryStation_LotteryStationId" Association="Self.FK_StationModifiedInfo_LotteryStation_LotteryStationId">
+            <End Role="LotteryStation" EntitySet="LotteryStation" />
+            <End Role="StationModifiedInfo" EntitySet="StationModifiedInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportLottery_SportLotteryGameType_GameTypeId" Association="Self.FK_SportLottery_SportLotteryGameType_GameTypeId">
+            <End Role="SportLotteryGameType" EntitySet="SportLotteryGameType" />
+            <End Role="SportLottery" EntitySet="SportLottery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId" Association="Self.FK_StationModifiedInfo_StationModifiedType_ModifiedTypeId">
+            <End Role="StationModifiedType" EntitySet="StationModifiedType" />
+            <End Role="StationModifiedInfo" EntitySet="StationModifiedInfo" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WelfareLotteryModelStoreContainer" CdmEntityContainer="WelfareLotteryEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrator">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoleClaims">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.AspNetRoleClaims">
+              <MappingFragment StoreEntitySet="AspNetRoleClaims">
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
+                <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+                <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LotteryStation">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.LotteryStation">
+              <MappingFragment StoreEntitySet="LotteryStation">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AgencyNum" ColumnName="AgencyNum" />
+                <ScalarProperty Name="CommunicationType" ColumnName="CommunicationType" />
+                <ScalarProperty Name="DepositCardNo" ColumnName="DepositCardNo" />
+                <ScalarProperty Name="EstablishedTime" ColumnName="EstablishedTime" />
+                <ScalarProperty Name="GuaranteeBase64IdentityPic" ColumnName="GuaranteeBase64IdentityPic" />
+                <ScalarProperty Name="GuaranteeName" ColumnName="GuaranteeName" />
+                <ScalarProperty Name="HostBase64IdentityPic" ColumnName="HostBase64IdentityPic" />
+                <ScalarProperty Name="HostBase64Pic" ColumnName="HostBase64Pic" />
+                <ScalarProperty Name="HostIdentityAddress" ColumnName="HostIdentityAddress" />
+                <ScalarProperty Name="HostIdentityNo" ColumnName="HostIdentityNo" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="HostPhoneNum" ColumnName="HostPhoneNum" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MachineType" ColumnName="MachineType" />
+                <ScalarProperty Name="ManageTypeName" ColumnName="ManageTypeName" />
+                <ScalarProperty Name="ManageTypeProgencyListSerialized" ColumnName="ManageTypeProgencyListSerialized" />
+                <ScalarProperty Name="PropertyRight" ColumnName="PropertyRight" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="RelatedPhoneNetNum" ColumnName="RelatedPhoneNetNum" />
+                <ScalarProperty Name="RentDiscount" ColumnName="RentDiscount" />
+                <ScalarProperty Name="SportLotteryInfoId" ColumnName="SportLotteryInfoId" />
+                <ScalarProperty Name="StationCode" ColumnName="StationCode" />
+                <ScalarProperty Name="StationPhoneNo" ColumnName="StationPhoneNo" />
+                <ScalarProperty Name="StationPicListSerialized" ColumnName="StationPicListSerialized" />
+                <ScalarProperty Name="StationSpecificAddress" ColumnName="StationSpecificAddress" />
+                <ScalarProperty Name="StationTarget" ColumnName="StationTarget" />
+                <ScalarProperty Name="UsableArea" ColumnName="UsableArea" />
+                <ScalarProperty Name="Violation" ColumnName="Violation" />
+                <ScalarProperty Name="WelfareGameTypeListSerialized" ColumnName="WelfareGameTypeListSerialized" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RewardCardInfo">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.RewardCardInfo">
+              <MappingFragment StoreEntitySet="RewardCardInfo">
+                <ScalarProperty Name="CardIdentityNo" ColumnName="CardIdentityNo" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="CardNum" ColumnName="CardNum" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LotteryStationId" ColumnName="LotteryStationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salesclerk">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.Salesclerk">
+              <MappingFragment StoreEntitySet="Salesclerk">
+                <ScalarProperty Name="HeadPortraitBase64Pic" ColumnName="HeadPortraitBase64Pic" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdentityAddress" ColumnName="IdentityAddress" />
+                <ScalarProperty Name="IdentityNo" ColumnName="IdentityNo" />
+                <ScalarProperty Name="LotteryStationId" ColumnName="LotteryStationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportLottery">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.SportLottery">
+              <MappingFragment StoreEntitySet="SportLottery">
+                <ScalarProperty Name="GameTypeId" ColumnName="GameTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IncomingDate" ColumnName="IncomingDate" />
+                <ScalarProperty Name="IsInstall" ColumnName="IsInstall" />
+                <ScalarProperty Name="LotteryCode" ColumnName="LotteryCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="SportLotteryHostName" ColumnName="SportLotteryHostName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportLotteryGameType">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.SportLotteryGameType">
+              <MappingFragment StoreEntitySet="SportLotteryGameType">
+                <ScalarProperty Name="GameType" ColumnName="GameType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationManageType">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.StationManageType">
+              <MappingFragment StoreEntitySet="StationManageType">
+                <ScalarProperty Name="DetailsListSerialized" ColumnName="DetailsListSerialized" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationModifiedInfo">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.StationModifiedInfo">
+              <MappingFragment StoreEntitySet="StationModifiedInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LotteryStationId" ColumnName="LotteryStationId" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+                <ScalarProperty Name="ModifiedTypeId" ColumnName="ModifiedTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationModifiedType">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.StationModifiedType">
+              <MappingFragment StoreEntitySet="StationModifiedType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationRegion">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.StationRegion">
+              <MappingFragment StoreEntitySet="StationRegion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WelfareLotteryGameType">
+            <EntityTypeMapping TypeName="WelfareLotteryModel.WelfareLotteryGameType">
+              <MappingFragment StoreEntitySet="WelfareLotteryGameType">
+                <ScalarProperty Name="GameType" ColumnName="GameType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rebate" ColumnName="Rebate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="WelfareLotteryModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

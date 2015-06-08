@@ -13,6 +13,21 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,8 +49,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Extensions\Microsoft.Expression.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Effects, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,20 +94,102 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="DBModels\Administrator.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\AspNetRoleClaims.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\AspNetRoles.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\AspNetUserClaims.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\AspNetUserLogins.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\AspNetUsers.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\C__MigrationHistory.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\LotteryStation.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\LotteryStationDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LotteryStationDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\LotteryStationDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LotteryStationDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\LotteryStationDb1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Others.cs" />
+    <Compile Include="DBModels\RewardCardInfo.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Salesclerk.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\SportLottery.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\SportLotteryGameType.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\StationManageType.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\StationModifiedInfo.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\StationModifiedType.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\StationRegion.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Utility.cs" />
+    <Compile Include="DBModels\WelfareLotteryGameType.cs">
+      <DependentUpon>LotteryStationDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="UserControls\AddLotteryStation.xaml.cs">
+      <DependentUpon>AddLotteryStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddSalesclerk.xaml.cs">
+      <DependentUpon>AddSalesclerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LotteryStation.xaml.cs">
+      <DependentUpon>LotteryStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Salesclerk.xaml.cs">
+      <DependentUpon>Salesclerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SportLottery.xaml.cs">
+      <DependentUpon>SportLottery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StationManageTypeOpr.xaml.cs">
+      <DependentUpon>StationManageTypeOpr.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +207,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DBModels\LotteryStationDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LotteryStationDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DBModels\LotteryStationDb.edmx.diagram">
+      <DependentUpon>LotteryStationDb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +223,90 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ResourceLibary\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceLibary\Hometab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceLibary\TabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceLibary\WithoutBorderWithShadow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddLotteryStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddSalesclerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LotteryStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Salesclerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SportLottery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\StationManageTypeOpr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBModels\LotteryStationDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LotteryStationDb.edmx</DependentUpon>
+      <LastGenOutput>LotteryStationDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModels\LotteryStationDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LotteryStationDb.edmx</DependentUpon>
+      <LastGenOutput>LotteryStationDb1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Extensions\Microsoft.Expression.Drawing.dll" />
+    <Resource Include="Extensions\Microsoft.Expression.Drawing.xml" />
+    <Resource Include="ResourceLibary\Images\1.png" />
+    <Resource Include="ResourceLibary\Images\20120514094220107_easyicon_cn_48.png" />
+    <Resource Include="ResourceLibary\Images\20120514094858213_easyicon_cn_64.png" />
+    <Resource Include="ResourceLibary\Images\88.png" />
+    <Resource Include="ResourceLibary\Images\defaultbkg.jpg" />
+    <Resource Include="ResourceLibary\Images\ff.png" />
+    <Resource Include="ResourceLibary\Images\qqq.png" />
+    <Resource Include="ResourceLibary\Images\tt.png" />
+    <Resource Include="ResourceLibary\Images\未标题-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

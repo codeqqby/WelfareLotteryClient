@@ -1,0 +1,89 @@
+﻿<Window x:Class="WelfareLotteryClient.UserControls.AddSalesclerk"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dbModels="clr-namespace:WelfareLotteryClient.DBModels"
+             mc:Ignorable="d" MinWidth="265" Width="265" ResizeMode="NoResize" MinHeight="330" Height="330" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+
+    
+    <Window.Resources>
+        
+    <dbModels:Salesclerk x:Key="InputResult"></dbModels:Salesclerk>
+
+        <!--<DataTemplate x:Key="StoreData">
+            <StackPanel>
+
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource StationTextBlock}">销售员姓名：</TextBlock>
+                    <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtName" Text="{Binding Name,Mode=OneWayToSource}"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource StationTextBlock}">销售员电话：</TextBlock>
+                    <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtPhone" Text="{Binding Phone,Mode=OneWayToSource}"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource StationTextBlock}">身份证号码：</TextBlock>
+                    <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtIdentityNo" Text="{Binding IdentityNo,Mode=OneWayToSource}"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource StationTextBlock}">身份证地址：</TextBlock>
+                    <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtIdentityAddress" Text="{Binding IdentityAddress,Mode=OneWayToSource}"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Image Name="HeadPortraitBase64Pic" Width="120" Height="120" Source="/WelfareLotteryClient;component/ResourceLibary/Images/20120514094220107_easyicon_cn_48.png"></Image>
+                    <Button Width="100" Height="25" x:Name="btnClearkIcon" Click="btnClearkIcon_Click">销售员头像</Button>
+                </WrapPanel>
+
+            </StackPanel>
+        </DataTemplate>-->
+        
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+         <StackPanel Grid.Row="0" x:Name="stpContainer">
+
+            <!--<UserControl ContentTemplate="{StaticResource StoreData}" Width="250" Content="{StaticResource InputResult}"></UserControl>-->
+
+            <StackPanel DataContext="{StaticResource InputResult}">
+
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource StationTextBlock}">销售员姓名：</TextBlock>
+                        <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtName" Text="{Binding Name,Mode=OneWayToSource}"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource StationTextBlock}">销售员电话：</TextBlock>
+                        <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtPhone" Text="{Binding Phone,Mode=OneWayToSource}"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource StationTextBlock}">身份证号码：</TextBlock>
+                        <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtIdentityNo" Text="{Binding IdentityNo,Mode=OneWayToSource}"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource StationTextBlock}">身份证地址：</TextBlock>
+                        <TextBox Width="150" Style="{StaticResource TextBoxCircleBorder}" Name="txtIdentityAddress" Text="{Binding IdentityAddress,Mode=OneWayToSource}"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Image Name="HeadPortraitBase64Pic" Width="120" Height="120" Source="/WelfareLotteryClient;component/ResourceLibary/Images/20120514094220107_easyicon_cn_48.png"></Image>
+                        <Button Width="100" Height="25" x:Name="btnClearkIcon" Click="btnClearkIcon_Click">销售员头像</Button>
+                    </WrapPanel>
+
+                </StackPanel>
+             
+            
+        </StackPanel>
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top">
+        <Button x:Name="btnAddComplete" Content="完成" Command="New" Width="50" Height="30" HorizontalAlignment="Center" Click="btnAddComplete_Click"/>
+        </WrapPanel>
+    </Grid>
+   
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"></CommandBinding>
+    </Window.CommandBindings>
+    
+</Window>

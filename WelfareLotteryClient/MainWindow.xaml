@@ -1,12 +1,265 @@
-﻿<Window x:Class="WelfareLotteryClient.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WelfareLotteryClient"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="WelfareLotteryClient.MainWindow"
+    xmlns:UC="clr-namespace:WelfareLotteryClient.UserControls"
+        Title="MainWindow" MinHeight="710" Width="800" Style="{DynamicResource NoResize_window}" BorderThickness="1" BorderBrush="#FF87AFD4" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStartupLocation="CenterScreen"><!--MouseDoubleClick="Window_MouseDoubleClick"-->
+    <Window.Background>
+        <ImageBrush ImageSource="ResourceLibary/Images/defaultbkg.jpg"/>
+    </Window.Background>
     <Grid>
+        <TabControl Margin="3" Style="{DynamicResource HomeTabControlStyle}" Background="{x:Null}">
+            <TabItem Header="Operation" Height="35.767" Width="145.376" Margin="64,22,0,0" Style="{DynamicResource TabItemStyle}" FontSize="13.333" FontFamily="Microsoft YaHei" Foreground="Black">
+                <Grid Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.075*"/>
+                        <RowDefinition Height="0.925*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="149*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0.002"/>
+                            <GradientStop Color="WhiteSmoke" Offset="1"/>
+                            <GradientStop Color="#FFF7F7F7" Offset="0.002"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="11" Color="#FF154F87"/>
+                    </Grid.Effect>
+                    <!--<Label Content="   我的下载dgfd" VerticalContentAlignment="Center" FontSize="16" FontWeight="Bold" Background="#FFFDFDFD" Foreground="#BB48677C" Margin="0,1,0,0" Grid.ColumnSpan="2"/>-->
+                    <TabControl Margin="0,0,0,32" Grid.ColumnSpan="3" Grid.RowSpan="2" Style="{DynamicResource TabControlStyle}" BorderThickness="0,1,0,0" BorderBrush="{x:Null}" Background="{x:Null}" SelectionChanged="TabControl_SelectionChanged">
+                        <TabItem Header="网点信息" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/20120514094220107_easyicon_cn_48.png" Stretch="Uniform"/>
+                            </TabItem.Background>
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27.598"/> <!--Height="0.075*"-->
+                                    <RowDefinition Height="*"/><!--Height="0.925*"-->
+                                </Grid.RowDefinitions>
+                                
+                                <WrapPanel x:Name="OperateHeader" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Center"  Height="27.598"  Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
+
+                                    <Button Style="{DynamicResource OperateHeader}" x:Name="StationInfo" Click="Station_Click">网点信息</Button>
+                                    <Button Style="{DynamicResource OperateHeader}" x:Name="AddStation" Click="Station_Click">增加网点</Button>
+                                    <Button Style="{DynamicResource OperateHeader}" x:Name="AddGameType" Click="Station_Click">增加游戏类型</Button>
+                                    <Button Style="{DynamicResource OperateHeader}" x:Name="ChangeStation" Click="Station_Click">网点变更</Button>
+                                    <Button Style="{DynamicResource OperateHeader}" x:Name="StationType" Click="Station_Click">销售站类型</Button>
+
+
+                                    <!--<Label Style="{DynamicResource OperateHeader}" x:Name="AddStation">增加网点</Label>
+                                    <Label Style="{DynamicResource OperateHeader}" x:Name="AddGameType">增加游戏类型</Label>
+                                    <Label Style="{DynamicResource OperateHeader}" x:Name="ChangeStation">网点变更</Label>
+                                    <Label Style="{DynamicResource OperateHeader}" x:Name="StationType">销售站类型</Label>-->
+                                    
+                                    <!--<Rectangle Fill="LightBlue" VerticalAlignment="Top" Height="1" Width="1000"/>-->
+                                    <WrapPanel.Effect>
+                                        <DropShadowEffect Color="#FF5C8185" BlurRadius="8" Opacity="0.25" Direction="225" ShadowDepth="0"/>
+                                    </WrapPanel.Effect>
+                                </WrapPanel>
+                                <Grid  Grid.Row="1" x:Name="StationContainer">                                    
+                                <!--<UC:LotteryStation></UC:LotteryStation>-->
+                                    <UC:AddLotteryStation></UC:AddLotteryStation>
+                                </Grid>
+
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="销售员" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/20120514094858213_easyicon_cn_64.png" Stretch="UniformToFill"/>
+                            </TabItem.Background>
+                            <Grid Background="White" Margin="0">
+
+                                <UC:Salesclerk></UC:Salesclerk>
+
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="体彩店" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/88.png" Stretch="UniformToFill"/>
+                            </TabItem.Background>
+                            <Grid Background="White">
+                                <TextBlock>体彩店</TextBlock>
+                                <UC:SportLottery></UC:SportLottery>
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                            </Grid>
+                        </TabItem>
+
+                        <!--下两个选项隐藏了-->
+                        <TabItem Header="fghf" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/qqq.png" Stretch="UniformToFill"/>
+                            </TabItem.Background>
+                            <Grid Background="White">
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                                <Label>sfsdf</Label>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="游戏类型" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/ff.png" Stretch="UniformToFill"/>
+                            </TabItem.Background>
+                            <Grid Background="White">
+                                <Label>这个放入网点信息里</Label>
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                            </Grid>
+                        </TabItem>
+
+
+                        <TabItem Header="其它" Margin="0" Style="{DynamicResource ListTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                            <TabItem.Background>
+                                <ImageBrush ImageSource="ResourceLibary/Images/ff.png" Stretch="UniformToFill"/>
+                            </TabItem.Background>
+                            <Grid Background="White">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <GroupBox Header="管理员" Grid.Row="0" Grid.Column="0">
+                                        
+                                        <StackPanel>
+                                        <WrapPanel x:Name="addAdmin">
+                                                <TextBox x:Name="txtAddedAdminName" Width="100" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
+                                            <Button x:Name="btnChange" Click="btnChange_Click">修改</Button>
+                                            <Button x:Name="btnAddAdmin" Click="btnAddAdmin_Click">增加</Button>
+                                            </WrapPanel>
+                                            
+                                        <ListView x:Name="cboAllAdmin" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="cboAllAdmin_SelectionChanged">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                    <GridViewColumn Header="姓名" Width="80" DisplayMemberBinding="{Binding AdminName}"/>
+                                                    <GridViewColumn Header="操作" Width="50">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                                    <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelAdmin" Click="btnDelAdmin_Click">删除</Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                        
+                                    </ListView>
+                                        </StackPanel>
+                                    </GroupBox>
+
+
+                                <GroupBox Header="游戏类型" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0">
+
+                                    <StackPanel>
+                                        <WrapPanel x:Name="adGameType">
+                                            <TextBox x:Name="txtAddedGameType" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
+                                            <TextBox x:Name="txtAddedGameRebate" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
+                                            <Button x:Name="btnChangeGameType" Click="btnChangeGameType_Click">修改</Button>
+                                            <Button x:Name="btnAddGameType" Click="btnAddGameType_Click">增加</Button>
+                                        </WrapPanel>
+
+                                        <ListView x:Name="lvGameType" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvGameType_SelectionChanged">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="类型" Width="80" DisplayMemberBinding="{Binding GameType}"/>
+                                                    <GridViewColumn Header="返点" Width="80" DisplayMemberBinding="{Binding Rebate}"/>
+                                                    <GridViewColumn Header="操作" Width="50">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelGameType" Click="btnDelGameType_Click">删除</Button>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+
+                                        </ListView>
+                                    </StackPanel>
+                                </GroupBox>
+
+
+                                <GroupBox Header="销售站类型" Grid.Row="1" Grid.Column="0">
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Button x:Name="btnManageType" Click="btnManageType_Click" HorizontalAlignment="Center" Grid.Row="0" Width="auto">新增</Button>
+                                        
+                                    </Grid>
+                                    
+                                </GroupBox>
+
+
+                                <TextBlock Visibility="Collapsed">如管理员  游戏类型  等有网点在引用  它是无法删除的  需要验证</TextBlock>
+
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                                </Grid.Effect>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+
+                    <!--<WrapPanel x:Name="OperateHeader" Grid.Column="2" Margin="0" VerticalAlignment="Center">
+                        
+                        <TextBlock>sfgsf</TextBlock>
+                        <Button>dfs</Button>
+                        <TextBlock>sfgsf</TextBlock>
+                        <TextBlock>sfgsf</TextBlock>
+                        <TextBlock>sfgsf</TextBlock>
+                        <WrapPanel.Effect>
+                            <DropShadowEffect Color="#FF5C8185" BlurRadius="8" Opacity="0.25" Direction="225" ShadowDepth="0"/>
+                        </WrapPanel.Effect>
+                        
+                    </WrapPanel>-->
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+        <Border BorderBrush="#4F49779B" BorderThickness="0,1,0,0" Margin="3,0,3,3" Height="32" VerticalAlignment="Bottom" Background="White"/>
+        <Button x:Name="x" Content="Button" HorizontalAlignment="Right" Height="24" Style="{DynamicResource XButtonStyle}" VerticalAlignment="Top" Width="46" Margin="0,-1,0,0" Click="x_Click" />
+        <Button x:Name="m" Content="Button" HorizontalAlignment="Right" Height="24" Style="{DynamicResource MButtonStyle}" VerticalAlignment="Top" Width="35.5" Margin="0,-1,46.25,665" Click="m_Click"/>
+        <Button x:Name="__" Content="Button" HorizontalAlignment="Right" Height="24" Style="{DynamicResource -ButtonStyle}" VerticalAlignment="Top" Width="35" Margin="0,-1,82.2,0" Click="___Click"/>
+        <Button x:Name="s" Content="Button" HorizontalAlignment="Right" Height="24" Style="{DynamicResource sButtonStyle}" VerticalAlignment="Top" Width="42" Margin="0,-1,117.45,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="54" StrokeThickness="0" VerticalAlignment="Top" Width="54" Margin="3,3,0,0">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="ResourceLibary/Images/tt.png" Stretch="UniformToFill"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!--<Grid.CommandBindings>
+            <CommandBinding x:Name="TabItemClick" Command="TabItemClick" Executed="CommandBinding_Executed">
+            
+        </CommandBinding></Grid.CommandBindings>-->
         
     </Grid>
 </Window>

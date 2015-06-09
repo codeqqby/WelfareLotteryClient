@@ -101,7 +101,6 @@ namespace WelfareLotteryClient.DBModels
         }
     }
 
-
     public class OperateStationManageType
     {
         readonly WelfareLotteryEntities _walfareLotteryEntities=new WelfareLotteryEntities();
@@ -129,4 +128,38 @@ namespace WelfareLotteryClient.DBModels
         }
     }
 
+    public class OperateSportGameType
+    {
+        WelfareLotteryEntities entities=new WelfareLotteryEntities();
+        public void AddSportGameType(SportLotteryGameType gameType)
+        {
+            entities.SportLotteryGameType.Add(gameType);
+            entities.SaveChanges();
+        }
+
+        public bool IfExist(string typeName)
+        {
+            return entities.SportLotteryGameType.Count(p => p.GameType == typeName) > 0;
+        }
+
+        public void DelSportGameType(SportLotteryGameType type)
+        {
+            entities.SportLotteryGameType.Remove(type);
+            entities.SaveChanges();
+        }
+
+        public void EditSportGameType()
+        {
+           // var en = entities.SportLotteryGameType.FirstOrDefault(p => p.Id == type.Id);
+
+           // if (en == null) return;
+            //en.GameType = type.GameType;
+            entities.SaveChanges();
+        }
+
+        public List<SportLotteryGameType> GetAllSportLotteryGameTypes()
+        {
+            return entities.SportLotteryGameType.ToList();
+        }
+    }
 }

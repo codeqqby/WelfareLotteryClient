@@ -183,6 +183,8 @@ namespace WelfareLotteryClient
                             RefreshListview();
 
                             RefreshWelfareLotteryGameType();
+
+                            RefreshSportGameTypeListView();
                         }
                         break;
                 }
@@ -387,5 +389,99 @@ namespace WelfareLotteryClient
             stationManageType.ShowDialog();
 
         }
+        #region 体彩类型操作
+
+        readonly OperateSportGameType optSportGameType=new OperateSportGameType();
+
+        //删除体彩类型
+        private void btnDelSportGameType_Click(object sender, RoutedEventArgs e)
+        {
+            var lvc = lvSportGameType.SelectedItem as SportLotteryGameType;
+            if (lvc == null)
+            {
+                Button btn = sender as Button;
+                List<SportLotteryGameType> orginal = (List<SportLotteryGameType>)lvSportGameType.Items.SourceCollection;
+
+                lvc = orginal.Find(p => p.Id == Convert.ToInt32(btn.Tag));
+                if (lvc != null)
+                {
+                    goto perform;
+                }
+                MessageBox.Show("请选中您要删除的体彩类型");
+                return;
+            }
+
+            perform:
+            if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                optSportGameType.DelSportGameType(lvc);
+                RefreshSportGameTypeListView();
+            }
+        }
+
+        //修改体彩类型
+        private void btnModifySportGameType_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = lvSportGameType.SelectedItem as SportLotteryGameType;
+            if (temp == null)
+            {
+                MessageBox.Show("选择需要修改的体彩类型");
+                return;
+            }
+            string inputResult = txtsportGameType.Text.Trim();
+            if (string.IsNullOrEmpty(inputResult))
+            {
+                MessageBox.Show("请添写修改后的体彩类型");
+                return;
+            }
+
+            if (optSportGameType.IfExist(inputResult))
+            {
+                MessageBox.Show("体彩类型已存在！");
+                return;
+            }
+
+            temp.GameType = inputResult;
+
+            optSportGameType.EditSportGameType();
+            RefreshSportGameTypeListView();
+        }
+
+        //新增体彩类型
+        private void btnAddSportGameType_Click(object sender, RoutedEventArgs e)
+        {
+            string result = txtsportGameType.Text.Trim();
+            if (string.IsNullOrEmpty(result))
+            {
+                MessageBox.Show("输入体彩类型！");
+                return;
+            }
+
+            if (optSportGameType.IfExist(result))
+            {
+                MessageBox.Show("体彩类型已存在！");
+                return;
+            }
+
+            optSportGameType.AddSportGameType(new SportLotteryGameType
+            {
+                GameType =txtsportGameType.Text.Trim()
+            });
+            RefreshSportGameTypeListView();
+        }
+
+        private void RefreshSportGameTypeListView()
+        {
+            lvSportGameType.ItemsSource = optSportGameType.GetAllSportLotteryGameTypes();
+        }
+
+        private void lvSportGameType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var temp =lvSportGameType.SelectedItem as SportLotteryGameType;
+            if (temp == null) return;
+            txtsportGameType.Text = temp.GameType;
+        }
+
+        #endregion
     }
 }

@@ -142,7 +142,7 @@
                                         
                                         <StackPanel>
                                         <WrapPanel x:Name="addAdmin">
-                                                <TextBox x:Name="txtAddedAdminName" Width="100" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
+                                                <TextBox x:Name="txtAddedAdminName" Width="150" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
                                             <Button x:Name="btnChange" Click="btnChange_Click">修改</Button>
                                             <Button x:Name="btnAddAdmin" Click="btnAddAdmin_Click">增加</Button>
                                             </WrapPanel>
@@ -171,7 +171,7 @@
                                     </GroupBox>
 
 
-                                <GroupBox Header="游戏类型" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0">
+                                <GroupBox Header="福彩游戏类型" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0">
 
                                     <StackPanel>
                                         <WrapPanel x:Name="adGameType">
@@ -205,7 +205,7 @@
                                     </StackPanel>
                                 </GroupBox>
 
-
+                                <!--这个是否只加个链接即可？-->
                                 <GroupBox Header="销售站类型" Grid.Row="1" Grid.Column="0">
 
                                     <Grid>
@@ -219,6 +219,44 @@
                                     
                                 </GroupBox>
 
+                                <GroupBox Header="体彩类型" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0">
+
+                                    <StackPanel>
+                                        
+                                        <WrapPanel>
+                                            <TextBox x:Name="txtsportGameType" Width="150" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
+                                            <Button x:Name="btnModifySportGameType" Click="btnModifySportGameType_Click">修改</Button>
+                                            <Button x:Name="btnAddSportGameType" Click="btnAddSportGameType_Click">新增</Button>
+                                        </WrapPanel>
+
+                                        <ListView x:Name="lvSportGameType" BorderBrush="LightBlue" Margin="5,10,5,10" SelectionChanged="lvSportGameType_SelectionChanged">
+
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="类型" Width="170" DisplayMemberBinding="{Binding GameType}"></GridViewColumn>
+
+                                                    <GridViewColumn Header="操作" Width="50">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button Tag="{Binding Id}"  x:Name="btnDelSportGameType" Click="btnDelSportGameType_Click">删除</Button>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    
+                                                </GridView>
+                                            </ListView.View>
+                                            
+                                        </ListView>
+                                        
+                                    </StackPanel>
+
+                                </GroupBox>
 
                                 <TextBlock Visibility="Collapsed">如管理员  游戏类型  等有网点在引用  它是无法删除的  需要验证</TextBlock>
 

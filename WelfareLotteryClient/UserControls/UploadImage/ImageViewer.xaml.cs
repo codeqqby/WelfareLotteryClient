@@ -74,8 +74,20 @@ namespace WelfareLotteryClient.UserControls.UploadImage
         public static readonly DependencyProperty MaxDropPhotoProperty =
             DependencyProperty.Register("MaxDropPhoto", typeof(int?), typeof(ImageViewer), new PropertyMetadata(null));
 
+        //FrameworkPropertyMetadata
 
+        //propa
 
+        public Visibility ZoomVisibility
+        {
+            get { return (Visibility)GetValue(ZoomVisibilityProperty); }
+            set { SetValue(ZoomVisibilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ZoomVisibility.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ZoomVisibilityProperty =
+            DependencyProperty.Register("ZoomVisibility", typeof(Visibility), typeof(ImageViewer), new PropertyMetadata(Visibility.Visible));
+        
     }
        
 }

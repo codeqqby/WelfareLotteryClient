@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WelfareLotteryClient.DBModels"
-        mc:Ignorable="d" Width="320">
+        mc:Ignorable="d" x:Name="Self">
 
 
     <!--download link:https://msdn.microsoft.com/zh-cn/library/ms771331-->
@@ -29,7 +29,7 @@
                 <!-- Image Template -->
                 <Border Padding="4" Background="White" BorderBrush="#22000000" BorderThickness="1">
                     <StackPanel Orientation="Vertical" ToolTip="{Binding PhotoName}">
-                        <Image Source="{Binding GetThumbnailImage }"/> <!--Image.Thumbnail-->
+                        <Image Source="{Binding Image }"/> <!--Image.Thumbnail-->
                         <Label Content="{Binding PhotoName}">
                             <!--<Label.ToolTip>
                                 Only JPeg images with a stored thumbnail will display a thumbnail during preview.
@@ -125,14 +125,14 @@
     <Grid x:Name="gridContainer" Margin="10"><!--DataContext="{Binding Source={StaticResource Photos}}"-->
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!-- Zoom Control -->
-        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+        <DockPanel Grid.Row="0" Margin="0,0,0,10" Visibility="{Binding ZoomVisibility,ElementName=Self,UpdateSourceTrigger=PropertyChanged}">
             <Label DockPanel.Dock="Left">Zoom:</Label>
-            <Slider Name="ZoomSlider" Margin="10,0,0,0" Orientation="Horizontal" Minimum="80" Maximum="320" Value="160" TickFrequency="80" TickPlacement="BottomRight" SmallChange="5" LargeChange="20" /> <!--原值:Maximum="320"-->
+            <Slider Name="ZoomSlider" Margin="10,0,0,0" Orientation="Horizontal" Minimum="80" Maximum="320" Value="85" TickFrequency="80" TickPlacement="BottomRight" SmallChange="5" LargeChange="20" /> <!--原值:Maximum="320"-->
         </DockPanel>
 
         <GroupBox Grid.Row="1" Drop="GroupBox_Drop" AllowDrop="True">

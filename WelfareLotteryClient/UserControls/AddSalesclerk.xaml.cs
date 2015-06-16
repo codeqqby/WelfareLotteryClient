@@ -29,6 +29,7 @@ namespace WelfareLotteryClient.UserControls
         public AddSalesclerk()
         {
             InitializeComponent();
+            _result = TryFindResource("InputResult") as DBModels.Salesclerk;
         }
 
         private void btnClearkIcon_Click(object sender, RoutedEventArgs e)
@@ -50,23 +51,22 @@ namespace WelfareLotteryClient.UserControls
 
                 string base64 = Convert.ToBase64String(b);
 
-                var tep=(WrapPanel) VisualTreeHelper.GetParent(btn);
-                 Image image=(Image)tep.Children[0];
+                var tep = (WrapPanel)VisualTreeHelper.GetParent(btn);
+                Image image = (Image)tep.Children[0];
 
                 image.Source = u.ByteArrayToBitmapImage(Convert.FromBase64String(base64));
 
-                DBModels.Salesclerk result = FindResource("InputResult") as DBModels.Salesclerk;
-                result.HeadPortraitBase64Pic = base64;
+                _result.HeadPortraitBase64Pic = base64;
             }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (DialogResult==true)
+            if (DialogResult == true)
             {
                 return;
             }
-            if (MessageBox.Show("您确定放弃这次添加？", "提示", MessageBoxButton.OKCancel)==MessageBoxResult.Cancel)
+            if (MessageBox.Show("您确定放弃这次添加？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
             {
                 e.Cancel = true;
             }
@@ -78,34 +78,34 @@ namespace WelfareLotteryClient.UserControls
             this.Close();
         }
 
+        readonly System.Text.RegularExpressions.Regex rex = new System.Text.RegularExpressions.Regex(@"^\d+$");
+        readonly DBModels.Salesclerk _result;
         private void New_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            DBModels.Salesclerk result = TryFindResource("InputResult") as DBModels.Salesclerk;
 
-            if (result == null)
+            if (_result == null)
             {
                 e.CanExecute = false;
             }
             else
             {
-                int isNanTemp;
-                if (string.IsNullOrEmpty(txtIdentityAddress.Text.Trim()))
+                if (string.IsNullOrEmpty(txtIdentityAddress.GetTextBoxText()))
                 {
                     e.CanExecute = false;
                 }
-                else if (string.IsNullOrEmpty(txtIdentityNo.Text.Trim()))// || !int.TryParse(txtIdentityNo.Text, out isNanTemp)  因有的身份证号码有X进行占位
+                else if (string.IsNullOrEmpty(txtIdentityNo.GetTextBoxText()))//  因有的身份证号码有X进行占位 所以不完全都是数字的
                 {
                     e.CanExecute = false;
                 }
-                else if (string.IsNullOrEmpty(txtPhone.Text.Trim()) || !int.TryParse(txtPhone.Text,out isNanTemp))
+                else if (string.IsNullOrEmpty(txtPhone.GetTextBoxText()) || !rex.IsMatch(txtPhone.GetTextBoxText()))
                 {
                     e.CanExecute = false;
                 }
-                else if (string.IsNullOrEmpty(txtName.Text.Trim()))
+                else if (string.IsNullOrEmpty(txtName.GetTextBoxText()))
                 {
                     e.CanExecute = false;
                 }
-                else if (string.IsNullOrEmpty(result.HeadPortraitBase64Pic))
+                else if (string.IsNullOrEmpty(_result.HeadPortraitBase64Pic))
                 {
                     e.CanExecute = false;
                 }

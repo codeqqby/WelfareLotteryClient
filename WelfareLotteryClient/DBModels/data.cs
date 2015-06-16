@@ -12,12 +12,17 @@ namespace WelfareLotteryClient.DBModels
     /// </summary>
     public class Photo
     {
-        public Photo(string path)
+        public Photo(string path,Utility u)
         {
+            this._u = u;
             _path = path;
             _source = new Uri(path);
-            _image = BitmapFrame.Create(_source);
+           // _image = BitmapFrame.Create(_source);
             //_metadata = new ExifMetadata(_source);
+
+            var aa= u.GetPictureData(path);
+            base64Value = Convert.ToBase64String(aa);
+            _image = _u.ByteArrayToBitmapImage(aa);
         }
 
         public override string ToString()
@@ -27,15 +32,17 @@ namespace WelfareLotteryClient.DBModels
         }
 
         //因有的图片本身没有缩略图
-        public BitmapSource GetThumbnailImage => Image.Thumbnail ?? new BitmapImage(_source);
+       // public BitmapSource GetThumbnailImage => Image.Thumbnail ?? new BitmapImage(_source);
 
+        private Utility _u;
         private string _path;
-        public string PhotoName { get { return Path.GetFileNameWithoutExtension(_path); } }
+        public string PhotoName => Path.GetFileNameWithoutExtension(_path);
         private Uri _source;
         public string Source { get { return _path; } }
 
-        private BitmapFrame _image;
-        public BitmapFrame Image { get { return _image; } set { _image = value; } }
+        public string base64Value;
+        private BitmapSource _image;
+        public BitmapSource Image { get { return _image; } set { _image = value; } }
 
        // private ExifMetadata _metadata;
         //public ExifMetadata Metadata { get { return _metadata; } }
@@ -91,17 +98,20 @@ namespace WelfareLotteryClient.DBModels
         //    }
         //}
 
+        Utility u=new Utility();
+
         public void Update(IEnumerable<string> paths)
         {
             this.Clear();
             try
             {
                 foreach (string f in paths)
-                    Add(new Photo(f));
+                    Add(new Photo(f, u));
 
             }
-            catch (Exception)
+            catch (Exception r)
             {
+                this.Clear();
                 System.Windows.MessageBox.Show("添加出错，请退出重新添加！");
             }
         }

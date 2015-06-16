@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WelfareLotteryClient.DBModels
 {
     /// <summary>
-    /// 操作管理员  游戏类型  销售站类型 ect.
+    /// 操作管理员
     /// </summary>
     public class OperateAdmin
     {
@@ -65,6 +59,9 @@ namespace WelfareLotteryClient.DBModels
         }
     }
 
+    /// <summary>
+    /// 操作福彩游戏类型
+    /// </summary>
     public class OperateWelfareLotteryGameType
     {
         WelfareLotteryEntities entities = new WelfareLotteryEntities();
@@ -101,6 +98,9 @@ namespace WelfareLotteryClient.DBModels
         }
     }
 
+    /// <summary>
+    /// 操作销售站类型
+    /// </summary>
     public class OperateStationManageType
     {
         readonly WelfareLotteryEntities _walfareLotteryEntities=new WelfareLotteryEntities();
@@ -128,6 +128,9 @@ namespace WelfareLotteryClient.DBModels
         }
     }
 
+    /// <summary>
+    /// 操作体彩游戏类型
+    /// </summary>
     public class OperateSportGameType
     {
         WelfareLotteryEntities entities=new WelfareLotteryEntities();
@@ -160,6 +163,55 @@ namespace WelfareLotteryClient.DBModels
         public List<SportLotteryGameType> GetAllSportLotteryGameTypes()
         {
             return entities.SportLotteryGameType.ToList();
+        }
+    }
+
+    /// <summary>
+    /// 操作区域类型
+    /// </summary>
+    public class OperateRegion
+    {
+        //readonly LotteryStationDb _db=new LotteryStationDb();
+
+        WelfareLotteryEntities entities = new WelfareLotteryEntities();
+
+        /// <summary>
+        /// 获取所有区域类型
+        /// </summary>
+        /// <returns></returns>
+        public List<StationRegion> GetAllStationRegions()
+        {
+            return entities.StationRegion.OrderByDescending(p => p.Id).ToList();
+        }
+
+        public bool IfExistRegion(string regionName)
+        {
+            var re = entities.StationRegion.Count(p => p.RegionName == regionName);
+            return re > 0;
+        }
+
+        /// <summary>
+        /// 编辑一位区域类型
+        /// </summary>
+        public void EditorRegion()
+        {
+            entities.SaveChanges();
+        }
+
+        public void DelRegion(StationRegion region)
+        {
+            entities.StationRegion.Remove(region);
+            entities.SaveChanges();
+        }
+
+        /// <summary>
+        /// 添加区域类型
+        /// </summary>
+        /// <param name="region"></param>
+        public void AddRegion(StationRegion region)
+        {
+            entities.StationRegion.Add(region);
+            entities.SaveChanges();
         }
     }
 }

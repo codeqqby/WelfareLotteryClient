@@ -19,7 +19,7 @@ namespace WelfareLotteryClient.UserControls
             InitializeComponent();
             this.Icon=new DrawingImage();
         }
-
+        
         private WelfareLotteryEntities entities;
         private LotteryStation station;
         private ObservableCollection<DBModels.Salesclerk> collection;

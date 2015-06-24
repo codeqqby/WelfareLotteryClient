@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
         Title="网点变更" Height="300" SizeToContent="Width">
-    
+
     <Grid>
-        <StackPanel>
-            <WrapPanel x:Name="adGameType">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+            <WrapPanel x:Name="adGameType" Grid.Row="0">
                 <ComboBox x:Name="cboAddedType" DisplayMemberPath="TypeName" Margin="5,5,5,0" Height="25" SelectedIndex="0"></ComboBox>
                 <TextBox x:Name="txtAddedMemo" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
                 <DatePicker x:Name="txtDateTime" Width="150" Margin="0,5,5,0" Height="25" BorderBrush="AliceBlue"></DatePicker>
@@ -17,7 +20,7 @@
                 <Button x:Name="btnAddChangeType" Click="btnAddChangeType_Click">增加变更类型</Button>
             </WrapPanel>
 
-            <ListView x:Name="lvChangedMemo" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvChangedMemo_SelectionChanged">
+            <ListView x:Name="lvChangedMemo" Grid.Row="1" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvChangedMemo_SelectionChanged">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -37,8 +40,6 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-
             </ListView>
-        </StackPanel>
     </Grid>
 </Window>

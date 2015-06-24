@@ -5,15 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <WrapPanel x:Name="adGameType">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel x:Name="adGameType" Grid.Row="0">
             <TextBox x:Name="txtAddedGameType" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
             <TextBox x:Name="txtAddedGameRebate" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
             <Button x:Name="btnChangeGameType" Click="btnChangeGameType_Click">修改</Button>
             <Button x:Name="btnAddGameType" Click="btnAddGameType_Click">增加</Button>
         </WrapPanel>
 
-        <ListView x:Name="lvGameType" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvGameType_SelectionChanged">
+        <ListView x:Name="lvGameType" Grid.Row="1" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvGameType_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -32,7 +36,6 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-
         </ListView>
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="WelfareLotteryClient.UserControls.WelfareLotteryGameTypeOpr"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <WrapPanel x:Name="adGameType">
+            <TextBox x:Name="txtAddedGameType" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
+            <TextBox x:Name="txtAddedGameRebate" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
+            <Button x:Name="btnChangeGameType" Click="btnChangeGameType_Click">修改</Button>
+            <Button x:Name="btnAddGameType" Click="btnAddGameType_Click">增加</Button>
+        </WrapPanel>
+
+        <ListView x:Name="lvGameType" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvGameType_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="类型" Width="80" DisplayMemberBinding="{Binding GameType}"/>
+                    <GridViewColumn Header="返点" Width="80" DisplayMemberBinding="{Binding Rebate}"/>
+                    <GridViewColumn Header="操作" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelGameType" Click="btnDelGameType_Click">删除</Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+    </StackPanel>
+</UserControl>

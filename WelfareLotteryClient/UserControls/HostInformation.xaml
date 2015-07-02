@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="WelfareLotteryClient.UserControls.HostInformation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uploadImage="clr-namespace:WelfareLotteryClient.UserControls.UploadImage"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="HostName" Grid.Row="0" Grid.Column="0" Text="姓名:" Style="{StaticResource StationTextBlock}"/>
+        <TextBox x:Name="txtHostName" Grid.Row="0" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
+
+        <TextBlock x:Name="HostPhoneNum" Grid.Row="1" Grid.Column="0" Text="电话:" Style="{StaticResource StationTextBlock}"/>
+        <TextBox x:Name="txtHostPhoneNum1" Grid.Row="1" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
+        <TextBox x:Name="txtHostPhoneNum2" Grid.Row="2" Grid.Column="1" Width="200" Style="{StaticResource TextBoxCircleBorder}"/>
+
+        <TextBlock x:Name="HostIdentityNo" Grid.Row="3" Grid.Column="0" Text="身份证号:" Style="{StaticResource StationTextBlock}"/>
+        <TextBox x:Name="txtHostIdentityNo" Grid.Row="3" Grid.Column="1" MaxLength="18" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
+
+        <TextBlock x:Name="HostIdentityAddress" Grid.Row="4" Grid.Column="0" Text="身份证地址:" Style="{StaticResource StationTextBlock}"/>
+        <TextBox x:Name="txtHostIdentityAddress" Grid.Row="4" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
+
+
+        <Image Name="HostBase64Pic" Grid.Row="5" Grid.Column="0" Width="120" Height="120" Source="/WelfareLotteryClient;component/ResourceLibary/Images/20120514094220107_easyicon_cn_48.png"></Image>
+        <Button Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Tag="hostPic" Click="BtnUpload_Click" Width="100">机主照片上传</Button>
+
+        <uploadImage:ImageViewer x:Name="hostIdentityPic" MinHeight="130" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" MaxDropPhoto="2" ZoomVisibility="Collapsed"></uploadImage:ImageViewer>
+
+    </Grid>
+    </ScrollViewer>
+</UserControl>

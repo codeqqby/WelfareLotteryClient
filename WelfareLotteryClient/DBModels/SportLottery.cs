@@ -17,7 +17,7 @@ namespace WelfareLotteryClient.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SportLottery()
         {
-            this.LotteryStation = new HashSet<LotteryStation>();
+            this.LotteryStations = new HashSet<LotteryStation>();
         }
     
         public Nullable<int> GameTypeId { get; set; }
@@ -30,7 +30,7 @@ namespace WelfareLotteryClient.DBModels
         public string SportLotteryHostName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LotteryStation> LotteryStation { get; set; }
+        public virtual ICollection<LotteryStation> LotteryStations { get; set; }
         public virtual SportLotteryGameType SportLotteryGameType { get; set; }
     }
 }

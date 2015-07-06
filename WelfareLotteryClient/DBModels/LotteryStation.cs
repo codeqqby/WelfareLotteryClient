@@ -17,9 +17,9 @@ namespace WelfareLotteryClient.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LotteryStation()
         {
-            this.RewardCardInfo = new HashSet<RewardCardInfo>();
-            this.Salesclerk = new HashSet<Salesclerk>();
-            this.StationModifiedInfo = new HashSet<StationModifiedInfo>();
+            this.RewardCardInfoes = new HashSet<RewardCardInfo>();
+            this.Salesclerks = new HashSet<Salesclerk>();
+            this.StationModifiedInfoes = new HashSet<StationModifiedInfo>();
         }
     
         public Nullable<int> AdminId { get; set; }
@@ -57,10 +57,10 @@ namespace WelfareLotteryClient.DBModels
         public virtual SportLottery SportLottery { get; set; }
         public virtual StationRegion StationRegion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RewardCardInfo> RewardCardInfo { get; set; }
+        public virtual ICollection<RewardCardInfo> RewardCardInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Salesclerk> Salesclerk { get; set; }
+        public virtual ICollection<Salesclerk> Salesclerks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StationModifiedInfo> StationModifiedInfo { get; set; }
+        public virtual ICollection<StationModifiedInfo> StationModifiedInfoes { get; set; }
     }
 }

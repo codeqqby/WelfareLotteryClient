@@ -17,13 +17,13 @@ namespace WelfareLotteryClient.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StationModifiedType()
         {
-            this.StationModifiedInfo = new HashSet<StationModifiedInfo>();
+            this.StationModifiedInfoes = new HashSet<StationModifiedInfo>();
         }
     
         public int Id { get; set; }
         public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StationModifiedInfo> StationModifiedInfo { get; set; }
+        public virtual ICollection<StationModifiedInfo> StationModifiedInfoes { get; set; }
     }
 }

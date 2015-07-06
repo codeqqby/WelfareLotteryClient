@@ -4,24 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b8f84fe2878b48f6b1e2ac4c673171ff" Name="Diagram1">
+      <Diagram DiagramId="bfc527d144e540668cbee2d7d5c0a2cb" Name="Diagram1">
         <EntityTypeShape EntityType="WelfareLotteryModel.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.Administrator" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetRoleClaims" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetRoles" Width="1.5" PointX="9.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUserClaims" Width="1.5" PointX="14.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUserLogins" Width="1.5" PointX="14.25" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUsers" Width="1.5" PointX="12" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetRoleClaim" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetRole" Width="1.5" PointX="9.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.AspNetUser" Width="1.5" PointX="12" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.Log" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.LotteryStation" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.RewardCardInfo" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.Salesclerk" Width="1.5" PointX="7.5" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.SportLottery" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.SportLotteryGameType" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.StationManageType" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.StationManageType" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.StationModifiedInfo" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.StationModifiedType" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WelfareLotteryModel.StationRegion" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WelfareLotteryModel.WelfareLotteryGameType" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WelfareLotteryModel.WelfareLotteryGameType" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
         <AssociationConnector Association="WelfareLotteryModel.FK_LotteryStation_Administrator_AdminId" ManuallyRouted="false" />
         <AssociationConnector Association="WelfareLotteryModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" ManuallyRouted="false" />
         <AssociationConnector Association="WelfareLotteryModel.FK_AspNetUserClaims_AspNetUsers_UserId" ManuallyRouted="false" />

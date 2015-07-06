@@ -12,13 +12,13 @@ namespace WelfareLotteryClient.DBModels
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserClaims
+    public partial class Log
     {
-        public string ClaimType { get; set; }
-        public string ClaimValue { get; set; }
         public int Id { get; set; }
-        public string UserId { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public string Memo { get; set; }
+        public System.DateTime OptTime { get; set; }
+        public int OptType { get; set; }
+        public string UGuid { get; set; }
+        public string Username { get; set; }
     }
 }

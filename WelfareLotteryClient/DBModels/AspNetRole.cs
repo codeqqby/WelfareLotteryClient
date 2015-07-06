@@ -12,13 +12,13 @@ namespace WelfareLotteryClient.DBModels
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRoles
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRoles()
+        public AspNetRole()
         {
-            this.AspNetRoleClaims = new HashSet<AspNetRoleClaims>();
-            this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.AspNetRoleClaims = new HashSet<AspNetRoleClaim>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
         public string ConcurrencyStamp { get; set; }
@@ -27,8 +27,8 @@ namespace WelfareLotteryClient.DBModels
         public string NormalizedName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual ICollection<AspNetRoleClaim> AspNetRoleClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

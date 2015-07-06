@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="WelfareLotteryClient.UserControls.LotteryStationInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WelfareLotteryClient.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Grid Margin="5,0,0,0">
+        
+        <Grid.Resources>
+            <local:BoolTypeConverter x:Key="BoolTypeConverter"></local:BoolTypeConverter>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Dock="Top" Grid.Row="0">
+            <WrapPanel>
+            <TextBlock>添加筛选条件</TextBlock>
+            <TextBox MinWidth="150"></TextBox>
+                <Button Width="250" Style="{StaticResource LinkButton}">查询</Button><!--添加刷新-->
+            </WrapPanel>
+        </DockPanel>
+        <DataGrid x:Name="lvStationInfo" AlternationCount="2" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.Row="1" CanUserSortColumns="False" IsReadOnly="True" FrozenColumnCount="1" SelectionMode="Single" CanUserAddRows="False" MouseDoubleClick="lvStationInfo_MouseDoubleClick" >
+
+                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="网点编号" DisplayIndex="0" Binding="{Binding StationCode}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="所在区域" Binding="{Binding StationRegion.RegionName}"></DataGridTextColumn>
+                    
+                    <!--添加click可查看机主信息-->
+                    <DataGridTemplateColumn Header="机主姓名">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Tag="{Binding Path=Id}" Content="{Binding HostName}" Style="{StaticResource LinkButton}" Click="Button_Click_7"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                        
+                    <DataGridTextColumn Header="详细地址" Binding="{Binding StationSpecificAddress}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="标的物" Binding="{Binding StationTarget}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="网点电话" Binding="{Binding StationPhoneNo}"></DataGridTextColumn>
+                   
+                    <!--点击可查看担保人姓名和身份证-->
+                    <DataGridTemplateColumn Header="担保人姓名">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                    <Button Tag="{Binding Path=Id}" Content="{Binding GuaranteeName}" Style="{StaticResource LinkButton}" Click="Button_Click_6"></Button>
+                                </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="销售员">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Tag="{Binding Path=Id}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--点击可查看详情-->
+                    <DataGridTemplateColumn Header="游戏类型">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Id}" Visibility="Collapsed"></TextBlock>
+                                    <Button Tag="{Binding Path=WelfareGameTypeListSerialized}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click_4"></Button>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                       
+                    <DataGridTextColumn Header="管理员" Binding="{Binding Administrator.AdminName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="店面面积" Binding="{Binding UsableArea}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="店面产权" Binding="{Binding PropertyRight,Converter={StaticResource BoolTypeConverter},ConverterParameter=PropertyRight}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="租金折价" Binding="{Binding RentDiscount}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="设立时间" Binding="{Binding EstablishedTime, StringFormat=\{0:yyyy-MM-dd\}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="单双机情况" Binding="{Binding Path=MachineType,Converter={StaticResource BoolTypeConverter},ConverterParameter=MachineType}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="通讯情况" Binding="{Binding CommunicationType,Converter={StaticResource BoolTypeConverter},ConverterParameter=CommunicationType}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="关联电话网络号" Binding="{Binding RelatedPhoneNetNum}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="销售站类型" Binding="{Binding ManageTypeName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="代销证编号" Binding="{Binding AgencyNum}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="交款卡卡号" Binding="{Binding DepositCardNo}"></DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="即开奖励卡">
+                        <DataGridTemplateColumn.CellTemplate>
+                             <DataTemplate>
+                                    <Button Tag="{Binding Path=Id}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click_2"></Button>
+                                </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="网点变更信息">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Tag="{Binding Path=Id}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click_3"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="网点照片">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+<Button Tag="{Binding Path=Id}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click_1"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="违规信息">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+<Button Tag="{Binding Path=Id}" Style="{StaticResource LinkButton}" Content="查看" Click="Button_Click_5"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+    </Grid>
+</UserControl>

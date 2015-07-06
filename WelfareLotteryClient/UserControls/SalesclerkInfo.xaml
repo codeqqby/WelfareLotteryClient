@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="销售员信息" MaxWidth="400" MinWidth="400" WindowStartupLocation="CenterOwner">
     <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ListBox x:Name="clerkListBox" SelectionMode="Single">
             <ListBox.Resources>
                 <local:ConvertBase64ToImage x:Key="Base64ToImage"></local:ConvertBase64ToImage>
@@ -56,6 +57,7 @@
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 </Window>

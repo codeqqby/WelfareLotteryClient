@@ -27,7 +27,7 @@ namespace WelfareLotteryClient.UserControls
         {
             this.entities = entities;
             station = lottery;
-            collection = new ObservableCollection<DBModels.Salesclerk>(lottery.Salesclerk);
+            collection = new ObservableCollection<DBModels.Salesclerk>(lottery.Salesclerks);
              clerkListBox.ItemsSource = collection;
         }
 
@@ -46,7 +46,7 @@ namespace WelfareLotteryClient.UserControls
                     var resurnValue=cler.ShowDialog();
                     if (!resurnValue.GetValueOrDefault()) return;
                     DBModels.Salesclerk value= cler.TryFindResource("InputResult") as DBModels.Salesclerk;
-                    station.Salesclerk.Add(value);
+                    station.Salesclerks.Add(value);
                     entities.SaveChanges();
                     collection.Add(value);
                     break;
@@ -68,7 +68,7 @@ namespace WelfareLotteryClient.UserControls
                     if (!b.GetValueOrDefault()) return;
                     DBModels.Salesclerk result = clerk.FindResource("InputResult") as DBModels.Salesclerk;
 
-                    entities.Salesclerk.AddOrUpdate(result);
+                    entities.Salesclerks.AddOrUpdate(result);
                     entities.SaveChanges();
 
                     var aaa=collection.FirstOrDefault(p => p.Id == result.Id);
@@ -79,7 +79,7 @@ namespace WelfareLotteryClient.UserControls
                 case "删除":
                     if (MessageBox.Show("您确定要删除？","提示",MessageBoxButton.OKCancel)==MessageBoxResult.OK)
                     {
-                        station.Salesclerk.Remove(salesclerk);
+                        station.Salesclerks.Remove(salesclerk);
                         entities.SaveChanges();
                         collection.Remove(salesclerk);
                     }

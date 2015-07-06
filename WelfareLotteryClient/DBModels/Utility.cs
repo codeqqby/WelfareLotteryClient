@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -134,5 +138,57 @@ namespace WelfareLotteryClient.DBModels
         {
             return string.IsNullOrEmpty(msg);
         }
+
+        public static bool LoginUserHasRights()
+        {
+            LoginedUserInfo l=Application.Current.MainWindow.Tag as LoginedUserInfo;
+            return l.Permitted;
+        }
+    }
+
+    /// <summary>
+    /// 用户登录信息
+    /// </summary>
+    public class UserLoginInfo
+    {
+        /// <summary>
+        /// 以用户名或邮箱查询用户
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> IsAdmitted(AspNetUser users, UploadDataCompletedEventHandler callback)
+        {
+            try
+            {
+                WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+                StringBuilder postData = new StringBuilder();
+                postData.Append($"Id={users.UserName} ");
+                postData.Append($"&pass={users.PasswordHash}");
+
+                byte[] sendData = Encoding.UTF8.GetBytes(postData.ToString());
+                client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                client.Headers.Add("ContentLength", sendData.Length.ToString());
+                //var recData = client.UploadData(ConfigurationManager.AppSettings["loginVerification"], "POST",sendData);
+
+                client.UploadDataAsync(new Uri(ConfigurationManager.AppSettings["loginVerification"]), "POST", sendData);
+                client.UploadDataCompleted += callback;
+
+                // string aaaa = Encoding.UTF8.GetString(aa);
+                //client.Dispose();
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return new Dictionary<string, string> { { "Errors", ex.Message } };
+            }
+        }
+    }
+    public class LoginedUserInfo
+    {
+        public string UGuid { get; set; }
+        public string UName { get; set; }
+        public string RoleName { get; set; }
+        public bool Permitted { get; set; }
     }
 }

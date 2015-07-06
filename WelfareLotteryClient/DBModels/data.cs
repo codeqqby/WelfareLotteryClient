@@ -23,6 +23,12 @@ namespace WelfareLotteryClient.DBModels
             var aa= u.GetPictureData(path);
             base64Value = Convert.ToBase64String(aa);
             _image = _u.ByteArrayToBitmapImage(aa);
+            PhotoName=Path.GetFileNameWithoutExtension(_path);
+        }
+
+        public Photo(string photoName)
+        {
+            PhotoName = photoName;
         }
 
         public override string ToString()
@@ -36,9 +42,9 @@ namespace WelfareLotteryClient.DBModels
 
         private Utility _u;
         private string _path;
-        public string PhotoName => Path.GetFileNameWithoutExtension(_path);
+        public string PhotoName { get; }
         private Uri _source;
-        public string Source { get { return _path; } }
+        public string Source { get { return _path; }}
 
         public string base64Value;
         private BitmapSource _image;

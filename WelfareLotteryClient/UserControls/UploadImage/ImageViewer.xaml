@@ -54,6 +54,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+            <!--<Setter Property="HasItems" Value="False"></Setter>-->
+            
         </Style>
 
         <!-- Style for an individual generic item -->
@@ -118,7 +121,24 @@
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontSize" Value="11" />
         </Style>
-
+        
+            <!--<VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
+                <VisualBrush.Visual>
+                    <TextBlock FontStyle="Italic" Text="请输入用户名"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        
+        <Style TargetType="ListBox">
+            <Style.Triggers>
+                <Trigger Property="HasItems" Value="False">
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+                --><!--<Trigger Property="Text" Value="">
+                                    <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                                </Trigger>--><!--
+            </Style.Triggers>
+        </Style>-->
+        
     </UserControl.Resources>
 
     <!-- Master Container -->
@@ -135,12 +155,13 @@
             <Slider Name="ZoomSlider" Margin="10,0,0,0" Orientation="Horizontal" Minimum="80" Maximum="320" Value="85" TickFrequency="80" TickPlacement="BottomRight" SmallChange="5" LargeChange="20" /> <!--原值:Maximum="320"-->
         </DockPanel>
 
-        <GroupBox Grid.Row="1" Drop="GroupBox_Drop" AllowDrop="True">
+        <GroupBox Grid.Row="1" Drop="GroupBox_Drop" AllowDrop="{Binding ImageAllowDrop,ElementName=Self,UpdateSourceTrigger=PropertyChanged}">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <ListBox IsSynchronizedWithCurrentItem="True"
-          x:Name="PhotosListBox" 
+          x:Name="PhotosListBox"
           Style="{StaticResource PhotoListBoxStyle}" 
           Margin="5" SelectionMode="Extended" ItemsSource="{Binding}" SelectedIndex="0" MouseDoubleClick="OnPhotoClick">
+
                 </ListBox>
             </ScrollViewer>
         </GroupBox>

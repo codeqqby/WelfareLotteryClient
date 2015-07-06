@@ -20,6 +20,13 @@ namespace WelfareLotteryClient.UserControls.UploadImage
             gridContainer.DataContext = Photos;
         }
 
+        public ImageViewer(PhotoCollection collection)
+        {
+            InitializeComponent();
+            Photos = collection;
+            gridContainer.DataContext = Photos;
+        }
+
         private void OnPhotoClick(object sender, RoutedEventArgs e)
         {
             PhotoView pvWindow = new PhotoView
@@ -50,8 +57,10 @@ namespace WelfareLotteryClient.UserControls.UploadImage
             }
 
             Photos.Update(aa);
-
+            IsChanged = true;
         }
+        //是否托入过图片
+        public bool IsChanged;
 
         readonly string[] _extension={".jpg",".png", ".gif", ".bmp", ".jpeg"};
 
@@ -76,8 +85,10 @@ namespace WelfareLotteryClient.UserControls.UploadImage
 
         //FrameworkPropertyMetadata
 
-        //propa
-
+        //propa 附加属性
+        /// <summary>
+        /// 是否显示缩放条
+        /// </summary>
         public Visibility ZoomVisibility
         {
             get { return (Visibility)GetValue(ZoomVisibilityProperty); }
@@ -87,7 +98,22 @@ namespace WelfareLotteryClient.UserControls.UploadImage
         // Using a DependencyProperty as the backing store for ZoomVisibility.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ZoomVisibilityProperty =
             DependencyProperty.Register("ZoomVisibility", typeof(Visibility), typeof(ImageViewer), new PropertyMetadata(Visibility.Visible));
-        
+
+
+        /// <summary>
+        /// 是否允许拖入图片
+        /// </summary>
+        /// <returns></returns>
+        public bool ImageAllowDrop
+        {
+            get { return (bool)GetValue(ImageAllowDropProperty); }
+            set { SetValue(ImageAllowDropProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageAllowDrop.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageAllowDropProperty =
+            DependencyProperty.Register("ImageAllowDrop", typeof(bool), typeof(ImageViewer), new PropertyMetadata(true));
+
     }
        
 }

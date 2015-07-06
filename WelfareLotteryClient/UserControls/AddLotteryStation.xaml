@@ -15,9 +15,9 @@
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"></ColumnDefinition>
-            <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
                 <GroupBox Header="网点信息" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
@@ -108,22 +108,7 @@
 
                     <TextBlock Grid.Row="13" Grid.Column="0" Style="{StaticResource StationTextBlock}">管理员</TextBlock>
                     <ComboBox x:Name="cboAdmin" Grid.Row="13" Grid.Column="1" Height="25" VerticalAlignment="Top"></ComboBox>
-                            
-                    <ListView x:Name="cbxListBox" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" MaxHeight="150">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox Tag="{Binding Id}" Click="CheckBox_Checked"></CheckBox>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                <GridViewColumn Header="游戏类型" DisplayMemberBinding="{Binding GameType}"></GridViewColumn>
-                                <GridViewColumn Header="返点" DisplayMemberBinding="{Binding Rebate}"></GridViewColumn>
-                            </GridView>
-                                </ListView.View>
-                            </ListView>
+                    <local:SelectWelfareGameType x:Name="cbxListBox" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" MaxHeight="150"></local:SelectWelfareGameType>
                             
                     <TextBlock x:Name="RelatedPhoneNetNum" Grid.Row="15" Grid.Column="0" Text="关联电话网络号:" Style="{StaticResource StationTextBlock}"/>
                             <TextBox x:Name="txtRelatedPhoneNetNum" Grid.Row="15" Grid.Column="1" MaxLength="11" Width="100" Style="{StaticResource TextBoxCircleBorder}"/>
@@ -147,47 +132,11 @@
                     </ScrollViewer>
                 </GroupBox>
 
-        <GroupBox Header="机主信息" Grid.Row="0" Grid.Column="1" Width="300" HorizontalAlignment="Left">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition Height="120"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock x:Name="HostName" Grid.Row="0" Grid.Column="0" Text="姓名:" Style="{StaticResource StationTextBlock}"/>
-                        <TextBox x:Name="txtHostName" Grid.Row="0" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
-
-                        <TextBlock x:Name="HostPhoneNum" Grid.Row="1" Grid.Column="0" Text="电话:" Style="{StaticResource StationTextBlock}"/>
-                        <TextBox x:Name="txtHostPhoneNum1" Grid.Row="1" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
-                        <TextBox x:Name="txtHostPhoneNum2" Grid.Row="2" Grid.Column="1" Width="200" Style="{StaticResource TextBoxCircleBorder}"/>
-
-                        <TextBlock x:Name="HostIdentityNo" Grid.Row="3" Grid.Column="0" Text="身份证号:" Style="{StaticResource StationTextBlock}"/>
-                        <TextBox x:Name="txtHostIdentityNo" Grid.Row="3" Grid.Column="1" MaxLength="18" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
-                   
-                        <TextBlock x:Name="HostIdentityAddress" Grid.Row="4" Grid.Column="0" Text="身份证地址:" Style="{StaticResource StationTextBlock}"/>
-                        <TextBox x:Name="txtHostIdentityAddress" Grid.Row="4" Grid.Column="1" Width="200"  Style="{StaticResource TextBoxCircleBorder}"/>
-
-                    
-                        <Image Name="HostBase64Pic" Grid.Row="5" Grid.Column="0" Width="120" Height="100" Source="/WelfareLotteryClient;component/ResourceLibary/Images/20120514094220107_easyicon_cn_48.png"></Image>
-                        <Button Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Tag="hostPic" Click="BtnUpload_Click" Width="100">机主照片上传</Button>
-                    
-                        <uploadImage:ImageViewer x:Name="hostIdentityPic" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" MaxDropPhoto="2" ZoomVisibility="Collapsed"></uploadImage:ImageViewer>
-  
-                </Grid>
-            </ScrollViewer>
+        <GroupBox Header="机主信息" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+                   <local:HostInformation x:Name="HostInformation"></local:HostInformation>
         </GroupBox>
 
-        <GroupBox Header="销售员" Grid.Row="1" Grid.Column="1" Width="300" HorizontalAlignment="Left">
+        <GroupBox Header="销售员" Grid.Row="1" Grid.Column="1" MinWidth="350" HorizontalAlignment="Left">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="250"></RowDefinition>
@@ -211,7 +160,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Width="120" Height="120" Source="{Binding HeadPortraitBase64Pic,Converter={StaticResource Base64ToImage}}"></Image>
+                                <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Width="120" Height="120" Margin="0,0,10,0" Source="{Binding HeadPortraitBase64Pic,Converter={StaticResource Base64ToImage}}"></Image>
 
                                 <WrapPanel Grid.Row="0" Grid.Column="1">
                                     <TextBlock>销售员姓名：</TextBlock>
@@ -238,19 +187,19 @@
             </Grid>
         </GroupBox>
  
-        <GroupBox Header="网点照片" Grid.Row="0" Grid.Column="2" Width="320">
+        <GroupBox Header="网点照片" Grid.Row="0" Grid.Column="2" Width="320" HorizontalAlignment="Left">
             <uploadImage:ImageViewer x:Name="ViewerStationPic"></uploadImage:ImageViewer>
         </GroupBox>
-        
-        <GroupBox Header="其它" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left">
+
+        <GroupBox Header="其它" Grid.Row="1" Grid.Column="2"  Width="320" HorizontalAlignment="Left">
             
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition><RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions><ColumnDefinition></ColumnDefinition><ColumnDefinition></ColumnDefinition></Grid.ColumnDefinitions>
 
-                <Button x:Name="btnAllSubmit" Click="btnAllSubmit_Click">提交</Button>
+                <Button x:Name="btnAllSubmit" Click="btnAllSubmit_Click" Width="40" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top">提交</Button>
             </Grid>
         </GroupBox>
 

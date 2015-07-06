@@ -1,23 +1,13 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using WelfareLotteryClient.DBModels;
 
@@ -28,28 +18,31 @@ namespace WelfareLotteryClient.UserControls
     /// </summary>
     public partial class AddLotteryStation : UserControl
     {
-        WelfareLotteryEntities entities = new WelfareLotteryEntities();
+        WelfareLotteryEntities entities;
 
         Dictionary<string,List<string>> manageTypeDictionary; 
 
         public AddLotteryStation()
         {
             InitializeComponent();
+
+            entities = (WelfareLotteryEntities)Application.Current.Resources["WelfareLotteryEntities"];
+
             this.clerkListBox.ItemsSource = _addedSalesclerks;
 
-            cboAdmin.ItemsSource = entities.Administrator.ToList();
+            cboAdmin.ItemsSource = entities.Administrators.ToList();
             cboAdmin.DisplayMemberPath = "AdminName";
             cboAdmin.SelectedValuePath = "Id";
 
-            manageTypeDictionary = entities.StationManageType.ToDictionary(key=>key.TypeName,value=>JsonConvert.DeserializeObject<List<string>>(value.DetailsListSerialized));
+            manageTypeDictionary = entities.StationManageTypes.ToDictionary(key=>key.TypeName,value=>JsonConvert.DeserializeObject<List<string>>(value.DetailsListSerialized));
 
 
             cmbStationManageType.ItemsSource = manageTypeDictionary.Keys;
             cmbStationManageType.SelectionChanged += CmbStationManageType_SelectionChanged;
 
-            cmbStationRegion.ItemsSource = entities.StationRegion.ToList();
+            cmbStationRegion.ItemsSource = entities.StationRegions.ToList();
 
-            cbxListBox.ItemsSource = entities.WelfareLotteryGameType.ToList();
+            cbxListBox.lvGameType.ItemsSource = entities.WelfareLotteryGameTypes.ToList();
         }
 
         private void CmbStationManageType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,33 +50,7 @@ namespace WelfareLotteryClient.UserControls
             cmbStationManageTypeChild.ItemsSource = manageTypeDictionary[Convert.ToString(cmbStationManageType.SelectedValue)];
         }
 
-        //机主照片和身份证正反 存入图片base64对应值
-        Dictionary<string, string> hostBase64PicValue = new Dictionary<string, string> { {"hostPic","" }, {"Identity","" }};
-
-        private void BtnUpload_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog
-            {
-                Title = "打开文件",
-                Filter = "图片(*.jpg;*.png;*.gif;*.bmp;*.jpeg)|*.jpg;*.png;*.gif;*.bmp;*.jpeg"
-            }; //定义打开文本框实体
-            //对话框标题
-            //文件扩展名
-            if (!open.ShowDialog().GetValueOrDefault()) return;
-
-            Utility u = new Utility();
-
-            byte[] b = u. GetPictureData(open.FileName);
-
-            string base64 = Convert.ToBase64String(b);
-
-            BitmapImage myimg = u. ByteArrayToBitmapImage(Convert.FromBase64String(base64));
-           
-            this.HostBase64Pic.Source = myimg;
-            hostBase64PicValue["hostPic"] = base64;
-        }
-
-        readonly ObservableCollection<DBModels.Salesclerk> _addedSalesclerks=new ObservableCollection<DBModels.Salesclerk>(); 
+        readonly ObservableCollection<Salesclerk> _addedSalesclerks=new ObservableCollection<Salesclerk>(); 
 
         private void btnSalesclerk_Click(object sender, RoutedEventArgs e)
         {
@@ -91,7 +58,7 @@ namespace WelfareLotteryClient.UserControls
 
             bool? b= salesclerk.ShowDialog();
             if (!b.GetValueOrDefault()) return;
-            DBModels.Salesclerk result = salesclerk.TryFindResource("InputResult") as DBModels.Salesclerk;
+            Salesclerk result = salesclerk.TryFindResource("InputResult") as Salesclerk;
             _addedSalesclerks.Add(result);
         }
         
@@ -109,6 +76,27 @@ namespace WelfareLotteryClient.UserControls
             string stationTarget = txtStationTarget.GetTextBoxText();
             string stationPhoneNo = txtStationPhoneNo.GetTextBoxText();
 
+            if (stationCode.IsNullOrEmpty())
+            {
+                "输入网点编号".MessageBoxDialog();
+                return;
+            }
+            if (stationSpecificAddress.IsNullOrEmpty())
+            {
+                "输入销售站详细地址".MessageBoxDialog();
+                return;
+            }
+            if (stationTarget.IsNullOrEmpty())
+            {
+                "输入标的物".MessageBoxDialog();
+                return;
+            }
+            if (stationPhoneNo.IsNullOrEmpty())
+            {
+                "输入网点电话".MessageBoxDialog();
+                return;
+            }
+
             StationRegion region= cmbStationRegion.SelectedItem as StationRegion;
             if (null==region)
             {
@@ -125,8 +113,23 @@ namespace WelfareLotteryClient.UserControls
             }
 
             string usableArea = txtUsableArea.GetTextBoxText();
+            if (usableArea.IsNullOrEmpty())
+            {
+                "输入店面经营使用面积".MessageBoxDialog();
+                return;
+            }
             string rentDiscount = txtRentDiscount.GetTextBoxText();
+            if (usableArea.IsNullOrEmpty())
+            {
+                "输入租金折价".MessageBoxDialog();
+                return;
+            }
             DateTime? establishedTime = datePickerCtl.SelectedDate;
+            if (establishedTime.HasValue)
+            {
+                "选择设立日期".MessageBoxDialog();
+                return;
+            }
             //销售站店面产权[0:租赁 1:自有]
             bool propertyRight = Convert.ToBoolean(cmbPropertyRight.SelectedIndex);
             //站点单双机情况[0:单机 1:双机]
@@ -134,11 +137,25 @@ namespace WelfareLotteryClient.UserControls
             //通讯类型[0:ADSL 1:CDMA]
             bool communicationType = Convert.ToBoolean(cmbCommunicationType.SelectedIndex);
             string relatedPhoneNetNum = txtRelatedPhoneNetNum.GetTextBoxText();
-
+            if (relatedPhoneNetNum.IsNullOrEmpty())
+            {
+                "输入关联电话网络号".MessageBoxDialog();
+                return;
+            }
             //代销证编号
             string agencyNum = txtAgencyNum.GetTextBoxText();
+            if (agencyNum.IsNullOrEmpty())
+            {
+                "输入代销证编号".MessageBoxDialog();
+                return;
+            }
             string depositCardNo = txtDepositCardNo.GetTextBoxText();
-            string violation = txtViolation.GetTextBoxText();
+            if (depositCardNo.IsNullOrEmpty())
+            {
+                "输入交款卡卡号".MessageBoxDialog();
+                return;
+            }
+            string violation = txtViolation.GetTextBoxText();//可不添
 
             Administrator admin = cboAdmin.SelectedItem as Administrator;
             if (null == admin)
@@ -148,6 +165,11 @@ namespace WelfareLotteryClient.UserControls
             }
 
             string guaranteeName = txtGuaranteeName.GetTextBoxText();
+            if (guaranteeName.IsNullOrEmpty())
+            {
+                "输入担保人姓名".MessageBoxDialog();
+                return;
+            }
             PhotoCollection guaranteeCollection = GuaranteeIdentity.Photos;
             if (guaranteeCollection.Count != 2)
             {
@@ -160,19 +182,24 @@ namespace WelfareLotteryClient.UserControls
 
             #region 机主信息
 
-            string hostName = txtHostName.GetTextBoxText();
-            string hostPhoneNum1=txtHostPhoneNum1.GetTextBoxText();
-            string hostPhoneNum2=txtHostPhoneNum2.GetTextBoxText();
-            string hostIdentityNo=txtHostIdentityNo.GetTextBoxText();
-            string hostIdentityAddress=txtHostIdentityAddress.GetTextBoxText();
-            PhotoCollection hostPicCol = hostIdentityPic.Photos;
-            if (hostPicCol.Count != 2)
+            string hostName = HostInformation.txtHostName.GetTextBoxText();
+            string hostPhoneNum1= HostInformation.txtHostPhoneNum1.GetTextBoxText();
+            string hostPhoneNum2= HostInformation.txtHostPhoneNum2.GetTextBoxText();
+            string hostIdentityNo= HostInformation.txtHostIdentityNo.GetTextBoxText();
+            string hostIdentityAddress= HostInformation.txtHostIdentityAddress.GetTextBoxText();
+
+            if (hostName.IsNullOrEmpty() || hostPhoneNum1.IsNullOrEmpty() || hostPhoneNum2.IsNullOrEmpty() || hostIdentityNo.IsNullOrEmpty() || hostIdentityAddress.IsNullOrEmpty())
+            {
+                "添写机主的完整信息".MessageBoxDialog();
+                return;
+            }
+
+           // PhotoCollection hostPicCol = HostInformation.hostIdentityPic.Photos;
+            if (HostInformation.DropImageCount != 2)
             {
                 "请添加机主身份证正反面照片！".MessageBoxDialog();
                 return;
             }
-            hostBase64PicValue["Identity"] = JsonConvert.SerializeObject(hostPicCol.ToDictionary(p => p.PhotoName, p => p.base64Value));
-
             #endregion
             
             PhotoCollection collection = ViewerStationPic.Photos;
@@ -199,7 +226,7 @@ namespace WelfareLotteryClient.UserControls
             {
                 Administrator = admin,
                 //AdminId = admin.Id,
-                Salesclerk = _addedSalesclerks,
+                Salesclerks = _addedSalesclerks,
                 StationCode = stationCode,
                 StationPhoneNo = stationPhoneNo,
                 StationSpecificAddress = stationSpecificAddress,
@@ -210,7 +237,7 @@ namespace WelfareLotteryClient.UserControls
                 ManageTypeName =manageType,
                 ManageTypeProgencyListSerialized = manageTypeChild,//现没有多选 所以没有序列化
                 StationPicListSerialized = _allPhotoBase64,
-                WelfareGameTypeListSerialized = JsonConvert.SerializeObject(gameTypeSelectedCollection),
+                WelfareGameTypeListSerialized = JsonConvert.SerializeObject(cbxListBox.GameTypeSelectedCollection),
 
                 AgencyNum = agencyNum,
                 UsableArea = usableArea,
@@ -226,8 +253,8 @@ namespace WelfareLotteryClient.UserControls
                 HostIdentityNo = hostIdentityNo,
                 HostPhoneNum = $"{hostPhoneNum1}⊙{hostPhoneNum2}",
                 HostIdentityAddress = hostIdentityAddress,
-                HostBase64Pic = hostBase64PicValue["hostPic"],
-                HostBase64IdentityPic = hostBase64PicValue["Identity"],
+                HostBase64Pic = HostInformation.HostPic,
+                HostBase64IdentityPic =HostInformation.Identity,
 
                 GuaranteeName = guaranteeName,
                 GuaranteeBase64IdentityPic = _guaranteePicBase64
@@ -235,21 +262,9 @@ namespace WelfareLotteryClient.UserControls
             };
 
             //如不用同一个上下文  这时会出现An entity object cannot be referenced by multiple instances of IEntityChangeTracker 或一个实体对象不能由多个 IEntityChangeTracker 实例引用的异常
-            entities.LotteryStation.Add(lottery);
-            entities.SaveChanges();
-        }
-
-        StringCollection gameTypeSelectedCollection=new StringCollection();
-        
-        // 游戏类型选择
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CheckBox chkZone = (CheckBox)sender;
-            string aa = Convert.ToString(chkZone.Tag);
-            if (chkZone.IsChecked != null && (!gameTypeSelectedCollection.Contains(aa) && chkZone.IsChecked.Value))
-                gameTypeSelectedCollection.Add(aa);
-            else
-                gameTypeSelectedCollection.Remove(aa);
+            entities.LotteryStations.Add(lottery);
+            //entities.SaveChanges();
+            "录入成功".MessageBoxDialog();
         }
     }
 

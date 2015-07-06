@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WelfareLotteryClient.DBModels;
 using WelfareLotteryClient.UserControls;
-using LotteryStation = WelfareLotteryClient.UserControls.LotteryStation;
 
 namespace WelfareLotteryClient
 {
@@ -27,8 +18,7 @@ namespace WelfareLotteryClient
         public MainWindow()
         {
             InitializeComponent();
-
-           // FullOrMin(this);
+            FullOrMin(this);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -138,7 +128,7 @@ namespace WelfareLotteryClient
             switch (btn.Name)
             {
                 case "StationInfo":
-                    this.StationContainer.Children.Add(new LotteryStation());
+                    this.StationContainer.Children.Add(new LotteryStationInfo());
                     break;
                 case "AddStation":                    
                     this.StationContainer.Children.Add(new AddLotteryStation());
@@ -166,7 +156,6 @@ namespace WelfareLotteryClient
         }
 
         readonly OperateAdmin optAdmin =new OperateAdmin();
-        readonly OperateWelfareLotteryGameType optWelfareLotteryGameType=new OperateWelfareLotteryGameType();
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var source = e.OriginalSource as TabControl;
@@ -182,9 +171,13 @@ namespace WelfareLotteryClient
                             //optAdmin.AddAdmin(new Administrator {AdminName = "小明"});
                             RefreshListview();
 
-                            RefreshWelfareLotteryGameType();
-
                             RefreshSportGameTypeListView();
+
+                            RefreshRegionListView();
+
+                            addAdmin.IsEnabled=wpSportGameType.IsEnabled= addRegion .IsEnabled= Tools.LoginUserHasRights();
+
+
                         }
                         break;
                 }
@@ -283,102 +276,6 @@ namespace WelfareLotteryClient
 
         }
         #endregion
-
-        //刷新福彩游戏类型Listview
-        private void RefreshWelfareLotteryGameType()
-        {
-            List<WelfareLotteryGameType> gameTypes = optWelfareLotteryGameType.GetAllWelfareLotteryGameTypes();
-            lvGameType.ItemsSource = gameTypes;
-        }
-
-        private void lvGameType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            WelfareLotteryGameType type = (WelfareLotteryGameType) lvGameType.SelectedItem;
-            if (type==null)
-            {
-                return;
-            }
-
-            txtAddedGameType.Text = type.GameType;
-            txtAddedGameRebate.Text = type.Rebate;
-        }
-
-        private void btnDelGameType_Click(object sender, RoutedEventArgs e)
-        {
-            WelfareLotteryGameType lvc = (WelfareLotteryGameType)lvGameType.SelectedItem;
-            if (lvc == null)
-            {
-                Button btn = sender as Button;
-                List<WelfareLotteryGameType> orginal = (List<WelfareLotteryGameType>)cboAllAdmin.Items.SourceCollection;
-
-                lvc = orginal.Find(p => p.Id == Convert.ToInt32(btn.Tag));
-                if (lvc != null)
-                {
-                    goto perform;
-                }
-                MessageBox.Show("请选中您要删除的游戏类型");
-                return;
-            }
-
-            perform:
-            if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            {
-                optWelfareLotteryGameType.DelGameType(lvc);
-               RefreshWelfareLotteryGameType();
-            }
-        }
-
-        private void btnChangeGameType_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = ((Button)sender);
-            btn.IsEnabled = false;
-            WelfareLotteryGameType type = (WelfareLotteryGameType)lvGameType.SelectedItem;
-            if (type == null)
-            {
-                MessageBox.Show("请选择需要删除的游戏类型！"); btn.IsEnabled = true;
-                return;
-            }
-            if (string.IsNullOrEmpty(txtAddedGameType.Text.Trim()) || string.IsNullOrEmpty(txtAddedGameRebate.Text.Trim()))
-            {
-                MessageBox.Show("请正确输入游戏数据！"); btn.IsEnabled = true;
-                return;
-            }
-
-            type.GameType = txtAddedGameType.Text;
-            type.Rebate = txtAddedGameRebate.Text;
-
-            optWelfareLotteryGameType.EditGameType(type);
-            RefreshWelfareLotteryGameType(); btn.IsEnabled = true;
-        }
-
-        private void btnAddGameType_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = ((Button)sender);
-           btn.IsEnabled = false;
-            if (string.IsNullOrEmpty(txtAddedGameType.Text.Trim()) || string.IsNullOrEmpty(txtAddedGameRebate.Text.Trim()))
-            {
-                MessageBox.Show("请正确输入游戏数据！");
-                btn.IsEnabled = true;
-                return;
-            }
-
-            if (optWelfareLotteryGameType.IfExistGameType(txtAddedGameType.Text.Trim()))
-            {
-                MessageBox.Show("游戏类型已存在，重新输入！");
-                btn.IsEnabled = true;
-                return;
-            }
-
-            WelfareLotteryGameType type=new WelfareLotteryGameType
-            {
-                GameType = txtAddedGameType.Text,
-                Rebate = txtAddedGameRebate.Text
-            };
-
-            optWelfareLotteryGameType.AddGameType(type);
-            RefreshWelfareLotteryGameType();
-            btn.IsEnabled = true;
-        }
 
         private void btnManageType_Click(object sender, RoutedEventArgs e)
         {
@@ -483,5 +380,126 @@ namespace WelfareLotteryClient
         }
 
         #endregion
+
+        #region 区域操作
+
+        readonly OperateRegion oprRegion=new OperateRegion();
+
+        private void RefreshRegionListView()
+        {
+            lvAllRegion.ItemsSource = oprRegion.GetAllStationRegions();
+        }
+
+        private void btnAddRegion_Click(object sender, RoutedEventArgs e)
+        {
+            string regionValue = txtAddedRegionName.GetTextBoxText();
+            if (regionValue.IsNullOrEmpty())
+            {
+                "输入区域类型".MessageBoxDialog();
+                return;
+            }
+            if (oprRegion.IfExistRegion(regionValue))
+            {
+                "区域类型已存在".MessageBoxDialog();
+                return;
+            }
+            btnAddRegion.IsEnabled = false;
+            oprRegion.AddRegion(new StationRegion {RegionName = regionValue});
+            RefreshRegionListView();
+            btnAddRegion.IsEnabled = true;
+        }
+
+        private void btnChangeRegion_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = lvAllRegion.SelectedItem as StationRegion;
+            if (temp == null)
+            {
+                MessageBox.Show("选择需要修改的区域类型");
+                return;
+            }
+            string inputResult = txtAddedRegionName.GetTextBoxText();
+            if (inputResult.IsNullOrEmpty())
+            {
+                MessageBox.Show("请添写修改后的区域类型");
+                return;
+            }
+
+            if (oprRegion.IfExistRegion(inputResult))
+            {
+                MessageBox.Show("区域类型已存在！");
+                return;
+            }
+            btnChangeRegion.IsEnabled = false;
+            temp.RegionName = inputResult;
+
+            oprRegion.EditorRegion();
+            RefreshRegionListView();
+            btnChangeRegion.IsEnabled = true;
+        }
+
+        private void btnDelRegion_Click(object sender, RoutedEventArgs e)
+        {
+            var lvc = lvAllRegion.SelectedItem as StationRegion;
+            if (lvc == null)
+            {
+                Button btn = sender as Button;
+                List<StationRegion> orginal = (List<StationRegion>)lvSportGameType.Items.SourceCollection;
+
+                lvc = orginal.Find(p => p.Id == Convert.ToInt32(btn.Tag));
+                if (lvc != null)
+                {
+                    goto perform;
+                }
+                MessageBox.Show("请选中您要删除的区域类型");
+                return;
+            }
+
+            perform:
+            if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
+            oprRegion.DelRegion(lvc);
+            RefreshRegionListView();
+        }
+        #endregion
+
+        private void lvAllRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var lvc = lvAllRegion.SelectedItem as StationRegion;
+            if (lvc != null)
+            {
+                txtAddedRegionName.Text = lvc.RegionName;
+            }
+        }
+
+        private void TabItem_Loaded(object sender, EventArgs e)
+        {
+            TabItem item=sender as TabItem;
+            item.IsEnabled = Tools.LoginUserHasRights();
+        }
+
+
+        private void OnResizeThumbDragStarted(object sender, DragStartedEventArgs e)
+        {
+            _cursor = Cursor;
+            Cursor = Cursors.SizeNWSE;
+        }
+
+        private void OnResizeThumbDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            Cursor = _cursor;
+        }
+
+        private void OnResizeThumbDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            double yAdjust = Height + e.VerticalChange;
+            double xAdjust = Width + e.HorizontalChange;
+
+            //make sure not to resize to negative width or heigth            
+            xAdjust = (ActualWidth + xAdjust) > MinWidth ? xAdjust : MinWidth;
+            yAdjust = (ActualHeight + yAdjust) > MinHeight ? yAdjust : MinHeight;
+
+            Width = xAdjust;
+            Height = yAdjust;
+        }
+        private Cursor _cursor;
     }
 }

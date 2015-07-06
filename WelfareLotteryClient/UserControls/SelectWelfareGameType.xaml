@@ -19,7 +19,7 @@
                 <GridViewColumn>
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Tag="{Binding Path=Id}" Click="CheckBox_Checked" IsChecked="{Binding Id,Converter={StaticResource BindCheckBox},ConverterParameter={StaticResource GameTypeSelectedCollection},Mode=OneTime}"></CheckBox>
+                            <CheckBox Tag="{Binding Path=Id}" Click="CheckBox_Checked" IsChecked="{Binding Id,Converter={StaticResource BindCheckBox},ConverterParameter={StaticResource GameTypeSelectedCollection},Mode=OneTime}" Initialized="CheckBox_Initialized"></CheckBox>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using WelfareLotteryClient.DBModels;
 
 namespace WelfareLotteryClient.UserControls
 {
@@ -22,9 +23,13 @@ namespace WelfareLotteryClient.UserControls
         public SelectWelfareGameType(string[] collection)
         {
             InitializeComponent();
-            StringCollection col=FindResource("GameTypeSelectedCollection") as StringCollection;
-            col.AddRange(collection);
-            GameTypeSelectedCollection = col;
+            GameTypeSelectedCollection = FindResource("GameTypeSelectedCollection") as StringCollection;
+            InitSelectedCollection(collection);
+        }
+
+        public void InitSelectedCollection(string[] collection)
+        {
+            GameTypeSelectedCollection.AddRange(collection);
         }
 
         /// <summary>
@@ -44,6 +49,12 @@ namespace WelfareLotteryClient.UserControls
             else
                 GameTypeSelectedCollection.Remove(aa);
             ChangedResult = true;
+        }
+
+        private void CheckBox_Initialized(object sender, EventArgs e)
+        {
+            CheckBox box=sender as CheckBox;
+            box.IsEnabled = Tools.LoginUserHasRights();
         }
     }
 

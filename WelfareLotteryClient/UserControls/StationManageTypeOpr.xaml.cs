@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
 using WelfareLotteryClient.DBModels;
 
@@ -270,16 +264,26 @@ namespace WelfareLotteryClient.UserControls
             btnDel.SetBinding(UidProperty, new Binding("Identity")); //知其属于哪个子类
             btnDel.SetValue(TagProperty, guid); //知其属于哪个父类
             btnDel.AddHandler(ButtonBase.ClickEvent,new RoutedEventHandler(BtnDelOperate));
+            btnDel.SetValue(IsEnabledProperty,Tools.LoginUserHasRights());
 
             temp.VisualTree = btnDel;
             cell.CellTemplate= temp;
             gridView.Columns.Add(cell);
 
             view.View = gridView;
+            view.SelectionChanged += (s, ev) =>
+            {
+                var item=view.SelectedItem as AddStationManageTypeViewModel;
+                if (null!=item)
+                {
+                    text.Text = item.ChildName;
+                }
+            };
 
             wrapPanel.Children.Add(text);
             wrapPanel.Children.Add(btn);
             wrapPanel.Children.Add(btnDelDetails);
+            wrapPanel.IsEnabled = Tools.LoginUserHasRights();
 
             stackPanel.Children.Add(wrapPanel);
             stackPanel.Children.Add(view);
@@ -287,6 +291,11 @@ namespace WelfareLotteryClient.UserControls
             box.Content = stackPanel;
 
             return box;
+        }
+
+        private void wpOperate_Loaded(object sender, RoutedEventArgs e)
+        {
+            wpOperate.IsEnabled = Tools.LoginUserHasRights();
         }
     }
 

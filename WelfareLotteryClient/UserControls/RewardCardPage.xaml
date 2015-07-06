@@ -32,7 +32,7 @@
                         <GridViewColumn Header="操作" Width="50">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelRewardCard" Click="btnDelRewardCard_Click">删除</Button>
+                                    <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelRewardCard" Click="btnDelRewardCard_Click" IsEnabled="{Binding IsEnabled,ElementName=adGameType,UpdateSourceTrigger=PropertyChanged}">删除</Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

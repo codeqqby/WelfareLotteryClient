@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <WrapPanel x:Name="adGameType" Grid.Row="0">
+        <WrapPanel x:Name="adGameType" Grid.Row="0" Loaded="adGameType_Loaded">
             <TextBox x:Name="txtAddedGameType" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
             <TextBox x:Name="txtAddedGameRebate" Width="100" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
             <Button x:Name="btnChangeGameType" Click="btnChangeGameType_Click">修改</Button>
@@ -30,7 +30,7 @@
                     <GridViewColumn Header="操作" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelGameType" Click="btnDelGameType_Click">删除</Button>
+                                <Button Tag="{Binding Id}" HorizontalAlignment="Center" x:Name="btnDelGameType" Click="btnDelGameType_Click" IsEnabled="{Binding Path=IsEnabled,ElementName=adGameType,UpdateSourceTrigger=PropertyChanged}">删除</Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

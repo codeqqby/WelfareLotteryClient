@@ -51,5 +51,14 @@ namespace WelfareLotteryClient.UserControls
             HostBase64Pic.Source = myimg;
             HostPic = base64;
         }
+
+        public void EnableAllControl()
+        {
+            txtHostPhoneNum1.IsEnabled =
+                txtHostIdentityAddress.IsEnabled =
+                    txtHostIdentityNo.IsEnabled = txtHostName.IsEnabled = txtHostPhoneNum2.IsEnabled=BtnUpload.IsEnabled= hostIdentityPic.ImageAllowDrop = Tools.LoginUserHasRights();
+            
+        }
+
     }
 }

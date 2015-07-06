@@ -37,7 +37,7 @@
 
 
         <Image Name="HostBase64Pic" Grid.Row="5" Grid.Column="0" Width="120" Height="120" Source="/WelfareLotteryClient;component/ResourceLibary/Images/20120514094220107_easyicon_cn_48.png"></Image>
-        <Button Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Tag="hostPic" Click="BtnUpload_Click" Width="100">机主照片上传</Button>
+        <Button Name="BtnUpload" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Tag="hostPic" Click="BtnUpload_Click" Width="100">机主照片上传</Button>
 
         <uploadImage:ImageViewer x:Name="hostIdentityPic" MinHeight="130" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" MaxDropPhoto="2" ZoomVisibility="Collapsed"></uploadImage:ImageViewer>
 

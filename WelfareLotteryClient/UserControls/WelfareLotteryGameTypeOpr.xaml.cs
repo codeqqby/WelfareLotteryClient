@@ -111,5 +111,10 @@ namespace WelfareLotteryClient.UserControls
             RefreshWelfareLotteryGameType();
             btn.IsEnabled = true;
         }
+
+        private void adGameType_Loaded(object sender, RoutedEventArgs e)
+        {
+            adGameType.IsEnabled = Tools.LoginUserHasRights();
+        }
     }
 }

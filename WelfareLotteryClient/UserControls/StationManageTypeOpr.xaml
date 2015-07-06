@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Width="600"
+             mc:Ignorable="d" Width="600" WindowStartupLocation="CenterOwner"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid Margin="5,5,5,0" Name="tee">
@@ -12,13 +12,12 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <WrapPanel>
+        <WrapPanel Name="wpOperate" Loaded="wpOperate_Loaded">
             <TextBox Width="100" x:Name="txtType" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
             <Button x:Name="btnModifyType" Click="btnModifyType_Click">修改类型</Button>
             <Button x:Name="btnAddType" Click="btnAddType_Click">增加类型</Button>
             <Button x:Name="btnCommitAll" Click="btnCommitAll_Click">完成了，提交！</Button>
         </WrapPanel>
-
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 

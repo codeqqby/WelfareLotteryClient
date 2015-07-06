@@ -26,7 +26,7 @@ namespace WelfareLotteryClient.UserControls
         {
             InitializeComponent();
             this.station = station;
-            _rewardCardInfos=new ObservableCollection<RewardCardInfo>(station.RewardCardInfo);
+            _rewardCardInfos=new ObservableCollection<RewardCardInfo>(station.RewardCardInfoes);
             lvRewardCard.ItemsSource = _rewardCardInfos;
         }
 
@@ -38,7 +38,7 @@ namespace WelfareLotteryClient.UserControls
             if (lvc == null)
             {
                 Button btn = sender as Button;
-                lvc = station.RewardCardInfo.Single(p => p.Id == Convert.ToInt32(btn.Tag));
+                lvc = station.RewardCardInfoes.Single(p => p.Id == Convert.ToInt32(btn.Tag));
                 if (lvc != null)
                 {
                     goto perform;
@@ -49,7 +49,7 @@ namespace WelfareLotteryClient.UserControls
 
             perform:
             if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
-            station.RewardCardInfo.Remove(lvc);
+            station.RewardCardInfoes.Remove(lvc);
             _rewardCardInfos.Remove(lvc);
             IsChanged = true;
         }
@@ -80,7 +80,7 @@ namespace WelfareLotteryClient.UserControls
                 return;
             }
 
-            bool hasName=station.RewardCardInfo.Count(info => info.CardIdentityNo == addedIdentity) > 0;
+            bool hasName=station.RewardCardInfoes.Count(info => info.CardIdentityNo == addedIdentity) > 0;
 
             if (hasName)
             {
@@ -99,7 +99,7 @@ namespace WelfareLotteryClient.UserControls
 
             };
 
-            station.RewardCardInfo.Add(obj);
+            station.RewardCardInfoes.Add(obj);
             _rewardCardInfos.Add(obj);
             btn.IsEnabled = true;
             IsChanged = true;
@@ -130,7 +130,7 @@ namespace WelfareLotteryClient.UserControls
                 return;
             }
 
-            bool hasName = station.RewardCardInfo.Count(info => info.CardIdentityNo == addedIdentity) > 0;
+            bool hasName = station.RewardCardInfoes.Count(info => info.CardIdentityNo == addedIdentity) > 0;
 
             if (hasName)
             {

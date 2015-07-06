@@ -22,9 +22,9 @@ namespace WelfareLotteryClient.UserControls
             station = s;
             entities = (WelfareLotteryEntities)Application.Current.Resources["WelfareLotteryEntities"];
 
-            cboAddedType.ItemsSource = entities.StationModifiedType.ToList();
+            cboAddedType.ItemsSource = entities.StationModifiedTypes.ToList();
 
-            stationModifiedInfos=new ObservableCollection<StationModifiedInfo>(entities.StationModifiedInfo);
+            stationModifiedInfos=new ObservableCollection<StationModifiedInfo>(entities.StationModifiedInfoes);
             lvChangedMemo.ItemsSource = stationModifiedInfos;
         }
 
@@ -49,7 +49,7 @@ namespace WelfareLotteryClient.UserControls
                 Memo = memo
             };
 
-            station.StationModifiedInfo.Add(info);
+            station.StationModifiedInfoes.Add(info);
             entities.SaveChanges();
             stationModifiedInfos.Add(info);
         }
@@ -110,7 +110,7 @@ namespace WelfareLotteryClient.UserControls
             perform:
             if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                entities.StationModifiedInfo.Remove(lvc);
+                entities.StationModifiedInfoes.Remove(lvc);
                 entities.SaveChanges();
                 stationModifiedInfos.Remove(lvc);
             }
@@ -120,7 +120,7 @@ namespace WelfareLotteryClient.UserControls
         {
             ModifiedType type = new ModifiedType {Owner = this};
             type.ShowDialog();
-            cboAddedType.ItemsSource = entities.StationModifiedType.ToList();
+            cboAddedType.ItemsSource = entities.StationModifiedTypes.ToList();
         }
 
         private bool VerifyInput(out string info,out DateTime? time)

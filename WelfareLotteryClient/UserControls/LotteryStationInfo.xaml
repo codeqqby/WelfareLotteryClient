@@ -16,13 +16,35 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel Dock="Top" Grid.Row="0">
-            <WrapPanel>
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Left">
+            <WrapPanel.Resources>
+                <Style TargetType="ComboBox">
+                    <Setter Property="MinWidth" Value="50"></Setter>
+                    <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                    <Setter Property="IsEditable" Value="True"></Setter>
+                </Style>
+            </WrapPanel.Resources>
             <TextBlock>添加筛选条件</TextBlock>
-            <TextBox MinWidth="150"></TextBox>
-                <Button Width="250" Style="{StaticResource LinkButton}">查询</Button><!--添加刷新-->
-            </WrapPanel>
-        </DockPanel>
+            <ComboBox Name="cboXsStationCode" ToolTip="网点编号"></ComboBox>
+            <ComboBox Name="cboXsRegion" DisplayMemberPath="RegionName" SelectedValuePath="Id" ToolTip="所在区域"></ComboBox><!--所在区域-->
+            <ComboBox Name="cboXsGameType" DisplayMemberPath="GameType" ToolTip="游戏类型"></ComboBox><!--游戏类型-->
+            <ComboBox Name="cboXsAdmin" DisplayMemberPath="AdminName" ToolTip="管理员"></ComboBox><!--管理员-->
+            <ComboBox Name="cboXsRights" ToolTip="店面产权"><!--店面产权-->
+                <ComboBoxItem>租赁</ComboBoxItem>
+                <ComboBoxItem>自有</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="cboXsMachineType" ToolTip="单双机情况"><!--单双机情况-->
+                <ComboBoxItem>单机</ComboBoxItem>
+                <ComboBoxItem>双机</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="cboXsCommunicationType" ToolTip="通讯类型"><!--通讯类型-->
+                <ComboBoxItem>ADSL</ComboBoxItem>
+                <ComboBoxItem>CDMA</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="cboXsManageTypeName" ToolTip="销售站类型"></ComboBox> <!--销售站类型-->
+                <Button  Style="{StaticResource LinkButton}" Margin="10,0,0,0" VerticalAlignment="Center" Click="Button_Click_9">查询</Button>
+            <Button Style="{StaticResource LinkButton}"  Margin="10,0,0,0" VerticalAlignment="Center" Click="Button_Click_8">刷新</Button>
+        </WrapPanel>
         <DataGrid x:Name="lvStationInfo" AlternationCount="2" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.Row="1" CanUserSortColumns="False" IsReadOnly="True" FrozenColumnCount="1" SelectionMode="Single" CanUserAddRows="False" MouseDoubleClick="lvStationInfo_MouseDoubleClick" >
 
                  <DataGrid.Columns>

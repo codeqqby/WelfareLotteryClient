@@ -125,7 +125,7 @@ namespace WelfareLotteryClient.UserControls
                 return;
             }
             DateTime? establishedTime = datePickerCtl.SelectedDate;
-            if (establishedTime.HasValue)
+            if (!establishedTime.HasValue)
             {
                 "选择设立日期".MessageBoxDialog();
                 return;
@@ -263,7 +263,16 @@ namespace WelfareLotteryClient.UserControls
 
             //如不用同一个上下文  这时会出现An entity object cannot be referenced by multiple instances of IEntityChangeTracker 或一个实体对象不能由多个 IEntityChangeTracker 实例引用的异常
             entities.LotteryStations.Add(lottery);
-            //entities.SaveChanges();
+            LoginedUserInfo u = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = u.UGuid,
+                Username = u.UName,
+                Memo = $"增加网点编号为【{stationCode}】的网点",
+                OptType =(int)OptType.新增,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
             "录入成功".MessageBoxDialog();
         }
     }

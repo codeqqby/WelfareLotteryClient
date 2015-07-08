@@ -143,15 +143,18 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <GroupBox Header="管理员" Grid.Row="0" Grid.Column="0">
-                                        
-                                        <StackPanel>
-                                        <WrapPanel x:Name="addAdmin">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                    <WrapPanel x:Name="addAdmin" Grid.Row="0">
                                                 <TextBox x:Name="txtAddedAdminName" Width="150" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
                                             <Button x:Name="btnChange" Click="btnChange_Click">修改</Button>
                                             <Button x:Name="btnAddAdmin" Click="btnAddAdmin_Click">增加</Button>
                                             </WrapPanel>
                                             
-                                        <ListView x:Name="cboAllAdmin" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="cboAllAdmin_SelectionChanged">
+                                        <ListView Grid.Row="1" x:Name="cboAllAdmin" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="cboAllAdmin_SelectionChanged">
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListViewItem}">
                                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -169,10 +172,10 @@
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
-                                        
-                                    </ListView>
-                                        </StackPanel>
-                                    </GroupBox>
+
+                                        </ListView>
+                                    </Grid>
+                                </GroupBox>
 
                                 <GroupBox Header="福彩游戏类型" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0">
 
@@ -192,15 +195,19 @@
                                         <Button x:Name="btnManageType" Click="btnManageType_Click" HorizontalAlignment="Center" Width="Auto">销售站类型操作</Button>
                                        </GroupBox>
                                         <GroupBox Header="区域内容" Grid.Row="1">
-                                        
-                                        <StackPanel>
-                                            <WrapPanel x:Name="addRegion">
+
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <WrapPanel x:Name="addRegion" Grid.Row="0">
                                                 <TextBox x:Name="txtAddedRegionName" Width="150" Style="{StaticResource TextBoxCircleBorder}" Margin="0,0,5,0"></TextBox>
                                                 <Button x:Name="btnChangeRegion" Click="btnChangeRegion_Click">修改</Button>
                                                 <Button x:Name="btnAddRegion" Click="btnAddRegion_Click">增加</Button>
                                             </WrapPanel>
 
-                                            <ListView x:Name="lvAllRegion" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvAllRegion_SelectionChanged">
+                                            <ListView Grid.Row="1" x:Name="lvAllRegion" Margin="5,10,5,10" BorderBrush="LightBlue" SelectionChanged="lvAllRegion_SelectionChanged">
                                                 <ListView.ItemContainerStyle>
                                                     <Style TargetType="{x:Type ListViewItem}">
                                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -220,23 +227,26 @@
                                                 </ListView.View>
 
                                             </ListView>
-                                        </StackPanel>
+                                            </Grid>
                                         </GroupBox>
                                     </Grid>
                                     
                                 </GroupBox>
 
                                 <GroupBox Header="体彩类型" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
 
-                                    <StackPanel>
-                                        
-                                        <WrapPanel Name="wpSportGameType">
+                                        <WrapPanel Name="wpSportGameType" Grid.Row="0">
                                             <TextBox x:Name="txtsportGameType" Width="150" Style="{StaticResource TextBoxCircleBorder}"></TextBox>
                                             <Button x:Name="btnModifySportGameType" Click="btnModifySportGameType_Click">修改</Button>
                                             <Button x:Name="btnAddSportGameType" Click="btnAddSportGameType_Click">新增</Button>
                                         </WrapPanel>
 
-                                        <ListView x:Name="lvSportGameType" BorderBrush="LightBlue" Margin="5,10,5,10" SelectionChanged="lvSportGameType_SelectionChanged">
+                                        <ListView Grid.Row="1" x:Name="lvSportGameType" BorderBrush="LightBlue" Margin="5,10,5,10" SelectionChanged="lvSportGameType_SelectionChanged">
 
                                             <ListView.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListViewItem}">
@@ -260,8 +270,8 @@
                                             </ListView.View>
                                             
                                         </ListView>
-                                        
-                                    </StackPanel>
+
+                                    </Grid>
 
                                 </GroupBox>
 
@@ -297,7 +307,7 @@
         <!--<Button x:Name="s" Content="Button" HorizontalAlignment="Right" Height="24" Style="{DynamicResource sButtonStyle}" VerticalAlignment="Top" Width="42" Margin="0,-1,117.45,0"/>-->
         <Rectangle HorizontalAlignment="Left" Height="54" StrokeThickness="0" VerticalAlignment="Top" Width="54" Margin="3,3,0,0">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="ResourceLibary/Images/tt.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="ResourceLibary/Images/tt.png" Stretch="UniformToFill"/><!--头像-->
             </Rectangle.Fill>
         </Rectangle>
 

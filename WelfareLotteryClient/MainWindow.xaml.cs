@@ -18,7 +18,7 @@ namespace WelfareLotteryClient
         public MainWindow()
         {
             InitializeComponent();
-            FullOrMin(this);
+            //FullOrMin(this);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -339,8 +339,7 @@ namespace WelfareLotteryClient
             }
 
             temp.GameType = inputResult;
-
-            optSportGameType.EditSportGameType();
+            optSportGameType.EditSportGameType(temp);
             RefreshSportGameTypeListView();
         }
 
@@ -432,7 +431,7 @@ namespace WelfareLotteryClient
             btnChangeRegion.IsEnabled = false;
             temp.RegionName = inputResult;
 
-            oprRegion.EditorRegion();
+            oprRegion.EditorRegion(temp);
             RefreshRegionListView();
             btnChangeRegion.IsEnabled = true;
         }

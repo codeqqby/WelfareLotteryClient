@@ -141,8 +141,13 @@ namespace WelfareLotteryClient.DBModels
 
         public static bool LoginUserHasRights()
         {
-            LoginedUserInfo l=Application.Current.MainWindow.Tag as LoginedUserInfo;
-            return l.Permitted;
+            return GetLoginedUserInfo().Permitted;
+        }
+
+        public static LoginedUserInfo GetLoginedUserInfo()
+        {
+            var info=Application.Current.MainWindow.Tag as LoginedUserInfo;
+            return info;
         }
     }
 

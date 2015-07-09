@@ -68,6 +68,17 @@ namespace WelfareLotteryClient.UserControls
             if (txtHostName.GetTextBoxText().IsNullOrEmpty()) goto f;
             if (txtPhone.GetTextBoxText().IsNullOrEmpty()) goto f;
             if (cboRelation.Text.IsNullOrEmpty()) goto f;
+
+            if (Sport != null)
+            {
+                if (Sport.IncomingDate==dpIncoming.SelectedDate && Sport.SportLotteryGameType==(cboGameType.SelectedItem as SportLotteryGameType)
+                     && Sport.IsInstall== cbIsInstalled.IsChecked.Value && Sport.SportLotteryHostName == txtHostName.Text
+                     && Sport.PhoneNumber == txtPhone.Text && Sport.LotteryCode == txtCode.Text && Sport.Relation ==cboRelation.Text)
+                {
+                    goto f;
+                }
+            }
+
             e.CanExecute = true;
             return;
             f: e.CanExecute = false;

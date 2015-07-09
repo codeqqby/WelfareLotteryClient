@@ -38,7 +38,9 @@ namespace WelfareLotteryClient.UserControls
             MenuItem item=sender as MenuItem;
 
             DBModels.Salesclerk salesclerk=clerkListBox.SelectedItem as DBModels.Salesclerk;
-            
+            if (salesclerk == null || null== item) return;
+            LoginedUserInfo user = Tools.GetLoginedUserInfo();
+
             switch (item.Header.ToString())
             {
                 case "增加":
@@ -48,6 +50,17 @@ namespace WelfareLotteryClient.UserControls
                     DBModels.Salesclerk value= cler.TryFindResource("InputResult") as DBModels.Salesclerk;
                     station.Salesclerks.Add(value);
                     entities.SaveChanges();
+
+                    entities.Logs.Add(new Log
+                    {
+                        UGuid = user.UGuid,
+                        Username = user.UName,
+                        Memo = $"添加编号为【{value.Id}】的销售员",
+                        OptType = (int)OptType.新增,
+                        OptTime = DateTime.Now
+                    });
+                    entities.SaveChanges();
+
                     collection.Add(value);
                     break;
                 case "修改":
@@ -69,6 +82,14 @@ namespace WelfareLotteryClient.UserControls
                     DBModels.Salesclerk result = clerk.FindResource("InputResult") as DBModels.Salesclerk;
 
                     entities.Salesclerks.AddOrUpdate(result);
+                    entities.Logs.Add(new Log
+                    {
+                        UGuid = user.UGuid,
+                        Username = user.UName,
+                        Memo = $"编辑编号为【{result.Id}】的销售员",
+                        OptType = (int)OptType.修改,
+                        OptTime = DateTime.Now
+                    });
                     entities.SaveChanges();
 
                     var aaa=collection.FirstOrDefault(p => p.Id == result.Id);
@@ -80,6 +101,14 @@ namespace WelfareLotteryClient.UserControls
                     if (MessageBox.Show("您确定要删除？","提示",MessageBoxButton.OKCancel)==MessageBoxResult.OK)
                     {
                         station.Salesclerks.Remove(salesclerk);
+                        entities.Logs.Add(new Log
+                        {
+                            UGuid = user.UGuid,
+                            Username = user.UName,
+                            Memo = $"删除编号为【{salesclerk.Id}】-名字为【{salesclerk.Name}】的销售员",
+                            OptType = (int)OptType.删除,
+                            OptTime = DateTime.Now
+                        });
                         entities.SaveChanges();
                         collection.Remove(salesclerk);
                     }

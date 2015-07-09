@@ -19,7 +19,7 @@ namespace WelfareLotteryClient.UserControls
 
             entities = (WelfareLotteryEntities)Application.Current.Resources["WelfareLotteryEntities"];
 
-            lvModifiedTypes=new ObservableCollection<StationModifiedType>(entities.StationModifiedType.ToList());
+            lvModifiedTypes=new ObservableCollection<StationModifiedType>(entities.StationModifiedTypes.ToList());
 
             cboAllTypes.ItemsSource = lvModifiedTypes;
         }
@@ -40,6 +40,15 @@ namespace WelfareLotteryClient.UserControls
             StationModifiedType type = cboAllTypes.SelectedItem as StationModifiedType;
             int index= lvModifiedTypes.IndexOf(type);
             type.TypeName = info;
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"编辑编号为【{type.Id}】的网点变更类型",
+                OptType = (int)OptType.修改,
+                OptTime = DateTime.Now
+            });
             entities.SaveChanges();
             lvModifiedTypes.Remove(type);
             lvModifiedTypes.Insert(index,type);
@@ -52,10 +61,19 @@ namespace WelfareLotteryClient.UserControls
 
             StationModifiedType type=new StationModifiedType {TypeName = info};
 
-            entities.StationModifiedType.Add(type);
+            entities.StationModifiedTypes.Add(type);
+            entities.SaveChanges();
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"新增编号为【{type.Id}】的网点变更类型",//这样貌没有用
+                OptType = (int)OptType.新增,
+                OptTime = DateTime.Now
+            });
             entities.SaveChanges();
             lvModifiedTypes.Add(type);
-
         }
 
         private bool VerifyInput(out string info,bool edit=false)
@@ -78,7 +96,7 @@ namespace WelfareLotteryClient.UserControls
             }
 
             string s = info;
-            if (entities.StationModifiedType.Count(p => p.TypeName == s) > 0)
+            if (entities.StationModifiedTypes.Count(p => p.TypeName == s) > 0)
             {
                 "已经存在此变更类型！".MessageBoxDialog();
                 return true;
@@ -104,7 +122,16 @@ namespace WelfareLotteryClient.UserControls
             perform:
             if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                entities.StationModifiedType.Remove(lvc);
+                entities.StationModifiedTypes.Remove(lvc);
+                LoginedUserInfo us = Tools.GetLoginedUserInfo();
+                entities.Logs.Add(new Log
+                {
+                    UGuid = us.UGuid,
+                    Username = us.UName,
+                    Memo = $"删除编号为【{lvc.Id}】-名称为【{lvc.TypeName}】的网点变更类型",//这样貌没有用
+                    OptType = (int)OptType.删除,
+                    OptTime = DateTime.Now
+                });
                 entities.SaveChanges();
                 lvModifiedTypes.Remove(lvc);
             }

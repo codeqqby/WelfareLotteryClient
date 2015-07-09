@@ -24,7 +24,7 @@ namespace WelfareLotteryClient.UserControls
 
             cboAddedType.ItemsSource = entities.StationModifiedTypes.ToList();
 
-            stationModifiedInfos=new ObservableCollection<StationModifiedInfo>(entities.StationModifiedInfoes);
+            stationModifiedInfos=new ObservableCollection<StationModifiedInfo>(station.StationModifiedInfoes);
             lvChangedMemo.ItemsSource = stationModifiedInfos;
         }
 
@@ -51,6 +51,17 @@ namespace WelfareLotteryClient.UserControls
 
             station.StationModifiedInfoes.Add(info);
             entities.SaveChanges();
+
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"添加编号为【{info.Id}】的网点变更信息",
+                OptType = (int)OptType.新增,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
             stationModifiedInfos.Add(info);
         }
 
@@ -74,6 +85,17 @@ namespace WelfareLotteryClient.UserControls
             modified.Memo = info;
             modified.ModifiedTime = time.Value;
             modified.StationModifiedType = type;
+
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"编辑编号为【{modified.Id}】的网点变更信息",
+                OptType = (int)OptType.修改,
+                OptTime = DateTime.Now
+            });
+
             entities.SaveChanges();
             stationModifiedInfos.Remove(modified);
             stationModifiedInfos.Insert(index, modified);
@@ -108,12 +130,19 @@ namespace WelfareLotteryClient.UserControls
             }
 
             perform:
-            if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
+            entities.StationModifiedInfoes.Remove(lvc);
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
             {
-                entities.StationModifiedInfoes.Remove(lvc);
-                entities.SaveChanges();
-                stationModifiedInfos.Remove(lvc);
-            }
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"删除编号为【{lvc.Id}】的网点变更信息",//这样貌没有用
+                OptType = (int)OptType.删除,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
+            stationModifiedInfos.Remove(lvc);
         }
 
         private void btnAddChangeType_Click(object sender, RoutedEventArgs e)

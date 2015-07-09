@@ -22,12 +22,14 @@ namespace WelfareLotteryClient.UserControls
     public partial class RewardCardPage : Window
     {
         private readonly LotteryStation station;
+        WelfareLotteryEntities entities;
         public RewardCardPage(LotteryStation station)
         {
             InitializeComponent();
             this.station = station;
             _rewardCardInfos=new ObservableCollection<RewardCardInfo>(station.RewardCardInfoes);
             lvRewardCard.ItemsSource = _rewardCardInfos;
+            entities = (WelfareLotteryEntities)Application.Current.Resources["WelfareLotteryEntities"];
         }
 
         private readonly ObservableCollection<RewardCardInfo> _rewardCardInfos; 
@@ -50,8 +52,17 @@ namespace WelfareLotteryClient.UserControls
             perform:
             if (MessageBox.Show("您确定要删除？", "提示", MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
             station.RewardCardInfoes.Remove(lvc);
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"删除编号为【{lvc.Id}】-姓名为【{lvc.CardName}】的奖励卡信息",
+                OptType = (int)OptType.删除,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
             _rewardCardInfos.Remove(lvc);
-            IsChanged = true;
         }
 
         private void lvGameType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -100,12 +111,22 @@ namespace WelfareLotteryClient.UserControls
             };
 
             station.RewardCardInfoes.Add(obj);
+            entities.SaveChanges();
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"添加编号为【{obj.Id}】的奖励卡信息",
+                OptType = (int)OptType.新增,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
             _rewardCardInfos.Add(obj);
             btn.IsEnabled = true;
-            IsChanged = true;
         }
 
-        public bool IsChanged { get; set; }
+        //public bool IsChanged { get; set; }
 
         private void btnChangeRewardCard_Click(object sender, RoutedEventArgs e)
         {
@@ -146,8 +167,17 @@ namespace WelfareLotteryClient.UserControls
             card.CardIdentityNo = addedIdentity;
             card.CardName = addedName;
             card.CardNum = addedNo;
+            LoginedUserInfo us = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = us.UGuid,
+                Username = us.UName,
+                Memo = $"编辑编号为【{card.Id}】的奖励卡信息",
+                OptType = (int)OptType.修改,
+                OptTime = DateTime.Now
+            });
+            entities.SaveChanges();
             _rewardCardInfos.Insert(index,card);
-            IsChanged = true;
             btn.IsEnabled = true;
         }
     }

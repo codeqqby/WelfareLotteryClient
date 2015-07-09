@@ -291,6 +291,15 @@ namespace WelfareLotteryClient.UserControls
 
             //如不用同一个上下文  这时会出现An entity object cannot be referenced by multiple instances of IEntityChangeTracker 或一个实体对象不能由多个 IEntityChangeTracker 实例引用的异常
             entities.LotteryStations.AddOrUpdate(station);
+            LoginedUserInfo u = Tools.GetLoginedUserInfo();
+            entities.Logs.Add(new Log
+            {
+                UGuid = u.UGuid,
+                Username = u.UName,
+                Memo = $"更新网点编号为【{stationCode}】的网点",
+                OptType = (int)OptType.修改,
+                OptTime = DateTime.Now
+            });
             entities.SaveChanges();
             "更新成功".MessageBoxDialog();
         }

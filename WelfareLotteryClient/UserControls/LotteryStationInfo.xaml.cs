@@ -450,6 +450,51 @@ namespace WelfareLotteryClient.UserControls
             lvStationInfo.LoadingRow += DataGridSoftware_LoadingRow;
             gridTempData = null;
         }
+
+        //双机店查看体彩店信息
+        private void Button_Click_10(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            if ((btn == null || btn.Cursor != Cursors.Hand)) return;
+
+            LotteryStation s = lvStationInfo.SelectedItem as LotteryStation ??
+                               alLotteryStations.FirstOrDefault(p => p.Id == Convert.ToInt32(btn.Tag));
+            if (!s.MachineType) return;
+
+            if (null == s.SportLottery)
+            {
+                SportLottery lottery = new SportLottery
+                {
+                    Owner = Application.Current.MainWindow,
+                    cboGameType =
+                    {
+                        ItemsSource = entities.SportLotteryGameTypes.ToList(),
+                        DisplayMemberPath = "GameType"
+                    }
+                };
+                var result = lottery.ShowDialog();
+                if (!result.GetValueOrDefault() || null == lottery.Sport) return;
+                s.SportLottery = lottery.Sport;
+                entities.SaveChanges();
+            }
+            else
+            {
+                SportLottery lottery = new SportLottery(s.SportLottery)
+                {
+                    Owner = Application.Current.MainWindow,
+                    cboGameType =
+                    {
+                        ItemsSource = entities.SportLotteryGameTypes.ToList(),
+                        DisplayMemberPath = "GameType"
+                    }
+                };
+                var result = lottery.ShowDialog();
+                if (!result.GetValueOrDefault() || null == lottery.Sport) return;
+                s.SportLottery = lottery.Sport;
+                entities.SaveChanges();
+            }
+        }
     }
 
     public class BoolTypeConverter : IValueConverter

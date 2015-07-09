@@ -97,8 +97,31 @@
                     <DataGridTextColumn Header="店面产权" Binding="{Binding PropertyRight,Converter={StaticResource BoolTypeConverter},ConverterParameter=PropertyRight}"></DataGridTextColumn>
                     <DataGridTextColumn Header="租金折价" Binding="{Binding RentDiscount}"></DataGridTextColumn>
                     <DataGridTextColumn Header="设立时间" Binding="{Binding EstablishedTime, StringFormat=\{0:yyyy-MM-dd\}}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="单双机情况" Binding="{Binding Path=MachineType,Converter={StaticResource BoolTypeConverter},ConverterParameter=MachineType}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="通讯情况" Binding="{Binding CommunicationType,Converter={StaticResource BoolTypeConverter},ConverterParameter=CommunicationType}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="单双机情况">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Tag="{Binding Path=Id}" Click="Button_Click_10">
+                               <Button.Template>
+                                   <ControlTemplate>
+                                        <TextBlock TextDecorations="none" Tag="双机" Text="{Binding Path=MachineType,Converter={StaticResource BoolTypeConverter},ConverterParameter=MachineType}"/>
+                                    </ControlTemplate>
+                               </Button.Template>
+                                
+                                <Button.Resources>
+                                   <Style TargetType="Button">
+                                       <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=MachineType}" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                                <!--<EventSetter Event="Button.Click" Handler="Button_Click_7"></EventSetter>-->
+                                            </DataTrigger></Style.Triggers>
+                                   </Style>
+                                </Button.Resources>
+                                
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="通讯情况" Binding="{Binding CommunicationType,Converter={StaticResource BoolTypeConverter},ConverterParameter=CommunicationType}"></DataGridTextColumn>
                     <DataGridTextColumn Header="关联电话网络号" Binding="{Binding RelatedPhoneNetNum}"></DataGridTextColumn>
                     <DataGridTextColumn Header="销售站类型" Binding="{Binding ManageTypeName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="代销证编号" Binding="{Binding AgencyNum}"></DataGridTextColumn>

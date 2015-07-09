@@ -476,6 +476,17 @@ namespace WelfareLotteryClient.UserControls
                 var result = lottery.ShowDialog();
                 if (!result.GetValueOrDefault() || null == lottery.Sport) return;
                 s.SportLottery = lottery.Sport;
+                
+                entities.SaveChanges();
+                LoginedUserInfo userInfo = Tools.GetLoginedUserInfo();
+                entities.Logs.Add(new Log
+                {
+                    UGuid = userInfo.UGuid,
+                    Username = userInfo.UName,
+                    Memo = $"为网点编号为【{s.StationCode}】的网点添加体彩店信息，编号为【{lottery.Sport.Id}】",
+                    OptType = (int)OptType.新增,
+                    OptTime = DateTime.Now
+                });
                 entities.SaveChanges();
             }
             else
@@ -492,6 +503,15 @@ namespace WelfareLotteryClient.UserControls
                 var result = lottery.ShowDialog();
                 if (!result.GetValueOrDefault() || null == lottery.Sport) return;
                 s.SportLottery = lottery.Sport;
+                LoginedUserInfo userInfo = Tools.GetLoginedUserInfo();
+                entities.Logs.Add(new Log
+                {
+                    UGuid = userInfo.UGuid,
+                    Username = userInfo.UName,
+                    Memo = $"为网点编号为【{s.StationCode}】的网点编辑体彩店信息，编号为【{lottery.Sport.Id}】",
+                    OptType = (int)OptType.修改,
+                    OptTime = DateTime.Now
+                });
                 entities.SaveChanges();
             }
         }
